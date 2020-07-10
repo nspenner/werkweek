@@ -1,38 +1,114 @@
 .App {
+    max-width: 1000px;
+    margin: 0 auto;
+    font-family: "Poppins", sans-serif;
+}
+
+header {
+    text-align: center;
+}
+
+.row {
+  display: flex;
+}
+
+li {
+  width: 100%;
+}
+
+.Stopwatch {
+  background: #ea4440;
+  color: white;
+  padding: 16px;
+  border-radius: 6px;
+}
+
+.Stopwatch-display {
+    width: 200px;
+    text-align: left;
+}
+
+.button-list {
+    margin-top: 8px;
+}
+
+button {
+  font-family: "Poppins";
+  border: none;
+  background: white;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 16px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+  margin: 0 auto;
+}
+
+textarea {
+  margin-top: 16px;
+  resize: none;
+  border: none;
+  background-color: #ea4440;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  width: 100%;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+textarea:focus {
+  background-color: white;
+  color: hsl(1, 20%, 20%);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.picker-container {
+    position: absolute;
+    z-index: 2;
+    right: -9px;
+    top: 13px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.color-selection-button-container {
+    margin-left: auto;
+    background-color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.5);
 }
 
-.App-link {
-  color: #61dafb;
+.color-selection-button-container > button {
+    width: 16px;
+    height: 16px;
+    border-radius: 16px;
+    margin-right: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.cover {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+.AddButton {
+    width: 2rem;
+    height: 2rem;
+    background-color: #ea4440;
+    border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
