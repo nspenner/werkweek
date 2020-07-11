@@ -1,11 +1,11 @@
 .App {
-    max-width: 1000px;
-    margin: 0 auto;
-    font-family: "Poppins", sans-serif;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: "Poppins", sans-serif;
 }
 
 header {
-    text-align: center;
+  text-align: center;
 }
 
 .row {
@@ -19,20 +19,39 @@ li {
 .Stopwatch {
   background: #ea4440;
   color: white;
-  padding: 16px;
   border-radius: 6px;
+  padding: 1rem;
 }
 
 .Stopwatch-display {
-    width: 200px;
-    text-align: left;
+  width: 200px;
+  text-align: left;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  margin-left: auto;
+  padding: 0;
+  font-size: 1rem;
+  color: white;
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-button:hover {
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .button-list {
-    margin-top: 8px;
+  margin-top: 8px;
 }
 
-button {
+.button-list button {
   font-family: "Poppins";
   border: none;
   background: white;
@@ -56,7 +75,7 @@ textarea {
   margin-top: 16px;
   resize: none;
   border: none;
-  background-color: #ea4440;
+  background-color: transparent;
   color: white;
   font-family: "Poppins", sans-serif;
   width: 100%;
@@ -64,51 +83,64 @@ textarea {
 }
 
 textarea:focus {
-  background-color: white;
+  background: white;
   color: hsl(1, 20%, 20%);
 }
 
+textarea:hover:not(:focus) {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 .picker-container {
-    position: absolute;
-    z-index: 2;
-    right: -9px;
-    top: 13px;
+  position: absolute;
+  z-index: 2;
+  right: -9px;
+  top: 13px;
 }
 
 .color-selection-button-container {
-    margin-left: auto;
-    background-color: white;
-    width: 24px;
-    height: 24px;
-    border-radius: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.5);
+  margin-left: auto;
+  background-color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.5);
 }
 
 .color-selection-button-container > button {
-    width: 16px;
-    height: 16px;
-    border-radius: 16px;
-    margin-right: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 16px;
+  margin-right: 0;
+  border: none;
+  cursor: pointer;
 }
 
 .cover {
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
 }
 
 .AddButton {
-    width: 2rem;
-    height: 2rem;
-    background-color: #ea4440;
-    border-radius: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  background-color: rgb(234, 68, 64);
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  font-size: 2rem;
+  color: white;
+}
+
+.AddButton:hover{
+    background-color: hsl(1, 70%, 48%);
 }
