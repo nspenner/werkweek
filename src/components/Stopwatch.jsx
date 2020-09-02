@@ -8,7 +8,6 @@ class Stopwatch extends Component {
     timerTime: 0,
     displayColorPicker: false,
     color: "#ea4440",
-    textAreaStyle: { backgroundColor: "#ea4440" },
   };
 
   startTimer = () => {
@@ -50,7 +49,6 @@ class Stopwatch extends Component {
   handleColorChange = (color) => {
     this.setState({
       color: color.hex,
-      textAreaStyle: { backgroundColor: color.hex },
     });
   };
 
@@ -106,7 +104,10 @@ class Stopwatch extends Component {
           <div className="Stopwatch-display">
             {hours} : {minutes} : {seconds} : {centiseconds}
           </div>
-          <button className="close-button" onClick={() => this.props.deleteWatch(this.props.id)}>
+          <button
+            className="close-button"
+            onClick={() => this.props.deleteWatch(this.props.id)}
+          >
             <svg
               width="1em"
               height="1em"
