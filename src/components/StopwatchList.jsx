@@ -15,7 +15,9 @@ class StopwatchList extends React.Component {
       <ul>
         {watchList}
         <li key="addButton">
-          <AddButton addWatch={this.props.addWatch} />
+          <div className="placeholder-container">
+            <AddButton addWatch={this.props.addWatch} />
+          </div>
         </li>
       </ul>
     );
