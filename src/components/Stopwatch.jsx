@@ -71,7 +71,7 @@ class Stopwatch extends Component {
     let seconds = ("0" + (Math.floor(timerTime / 1000) % 60)).slice(-2);
     let minutes = ("0" + (Math.floor(timerTime / 60000) % 60)).slice(-2);
     let hours = ("0" + Math.floor(timerTime / 3600000)).slice(-2);
-    let style = { backgroundColor: this.state.color };
+    let style = { borderColor: this.state.color };
     let colorPickerContainer = this.state.displayColorPicker ? (
       <div style={{ marginLeft: "auto" }}>
         <div className="color-selection-button-container">
@@ -109,11 +109,14 @@ class Stopwatch extends Component {
     );
     return (
       <div className="Stopwatch" style={style}>
-        <div className="row">
-          <div className="Stopwatch-display">
-            {hours} : {minutes} : {seconds} : {centiseconds}
-          </div>
-          <button
+        <div className="row border-accent" style={{ backgroundColor: this.state.color }}>
+          <textarea
+            rows="1"
+            onKeyDown={this.handleKeyPress}
+            defaultValue="Stopwatch"
+          ></textarea>
+        </div>
+        <button
             className="close-button"
             onClick={() => this.props.deleteWatch(this.props.id)}
           >
@@ -135,6 +138,11 @@ class Stopwatch extends Component {
               />
             </svg>
           </button>
+        <div className="container">
+        <div className="row">
+          <div className="Stopwatch-display">
+            {hours}:{minutes}:{seconds}:{centiseconds}
+          </div>
         </div>
 
         <div className="button-list">
@@ -152,26 +160,20 @@ class Stopwatch extends Component {
           )}
         </div>
         <div>
-          <textarea
-            rows="1"
-            onKeyDown={this.handleKeyPress}
-            defaultValue="Stopwatch"
-          ></textarea>
-        </div>
-        <div>
           <div className="row button-list">
             <button onClick={() => this.addTime(60000)}>+1:00</button>
             <button onClick={() => this.addTime(60000 * 15)}>+15:00</button>
             <button onClick={() => this.addTime(60000 * 60)}>+60:00</button>
           </div>
           <div className="row button-list">
-          <button onClick={() => this.addTime(-60000)}>-1:00</button>
+            <button onClick={() => this.addTime(-60000)}>-1:00</button>
             <button onClick={() => this.addTime(-60000 * 15)}>-15:00</button>
             <button onClick={() => this.addTime(-60000 * 60)}>-60:00</button>
           </div>
 
           <div className="button-list"></div>
           {colorPickerContainer}
+        </div>
         </div>
       </div>
     );
