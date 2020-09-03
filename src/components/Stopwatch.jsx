@@ -166,9 +166,9 @@ class Stopwatch extends Component {
             <button onClick={() => this.addTime(60000 * 60)}>+60:00</button>
           </div>
           <div className="row button-list">
-            <button onClick={() => this.addTime(-60000)}>-1:00</button>
-            <button onClick={() => this.addTime(-60000 * 15)}>-15:00</button>
-            <button onClick={() => this.addTime(-60000 * 60)}>-60:00</button>
+            <button disabled={this.state.timerTime < 60000} onClick={() => this.addTime(-60000)}>-1:00</button>
+            <button disabled={this.state.timerTime < 60000 * 15} onClick={() => this.addTime(-60000 * 15)}>-15:00</button>
+            <button disabled={this.state.timerTime < 60000 * 60} onClick={() => this.addTime(-60000 * 60)}>-60:00</button>
           </div>
 
           <div className="button-list"></div>
