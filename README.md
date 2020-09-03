@@ -1,3 +1,11 @@
+# Werkweek
+
+Werkweek is a simple webapp to help you track your time.
+
+[Try it out here.](https://nspenner.github.io/werkweek/)
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
