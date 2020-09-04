@@ -1,7 +1,9 @@
 :root {
   --primary: #ea4440;
   --stopwatchBackground: #ffffff;
-  --text-primary: #000000;
+  --text-primary: hsl(4, 8%, 30%);
+  --text-disabled: hsl(4, 4%, 65%);
+  --background-disabled: hsl(4, 4%, 95%);
 }
 
 .App {
@@ -87,13 +89,20 @@ li {
 
 .button-list button {
   font-family: "Fira Code", monospace;
-  border: 1px solid #b6b6b6;
-  background: white;
+  border: 1px solid var(--text-primary);
+  background: var(--stopwatchBackground);
   border-radius: 6px;
   padding: 4px 8px;
   font-size: 14px;
   cursor: pointer;
   margin-right: 16px;
+  color: var(--text-primary);
+}
+
+button:disabled {
+  color: var(--text-disabled);
+  background: var(--background-disabled);
+  cursor: not-allowed;
 }
 
 ul {
@@ -194,18 +203,7 @@ textarea:hover:not(:focus) {
   :root {
     --background: #2f2f2f;
     --stopwatchBackground: #4b4b4b;
-    --text-primary: #ffffff;
-  }
-
-  .button-list button {
-    font-family: "Fira Code", monospace;
-    color: white;
-    border: 1px solid white;
-    background: var(--stopwatchBackground);
-    border-radius: 6px;
-    padding: 4px 8px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-right: 16px;
+    --text-primary: hsl(4, 10%, 95%);
+    --background-disabled: hsl(0, 2.2%, 35.7%);
   }
 }
