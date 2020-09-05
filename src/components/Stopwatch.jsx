@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { TwitterPicker } from "react-color";
+import { set, get } from "idb-keyval";
 
 class Stopwatch extends Component {
   state = {
@@ -8,31 +9,49 @@ class Stopwatch extends Component {
     timerTime: 0,
     displayColorPicker: false,
     color: "#ea4440",
+    title: "Stopwatch",
   };
 
   startTimer = () => {
-    this.setState({
-      timerOn: true,
-      timerTime: this.state.timerTime,
-      timerStart: Date.now() - this.state.timerTime,
-    });
+    this.setState(
+      {
+        timerOn: true,
+        timerTime: this.state.timerTime,
+        timerStart: Date.now() - this.state.timerTime,
+      },
+      () => {
+        set(this.props.id, this.state);
+      }
+    );
     this.timer = setInterval(() => {
-      this.setState({
-        timerTime: Date.now() - this.state.timerStart,
-      });
+      this.setState(
+        {
+          timerTime: Date.now() - this.state.timerStart,
+        },
+        () => {
+          set(this.props.id, this.state);
+        }
+      );
     }, 10);
   };
 
   stopTimer = () => {
-    this.setState({ timerOn: false });
+    this.setState({ timerOn: false }, () => {
+      set(this.props.id, this.state);
+    });
     clearInterval(this.timer);
   };
 
   resetTimer = () => {
-    this.setState({
-      timerStart: 0,
-      timerTime: 0,
-    });
+    this.setState(
+      {
+        timerStart: 0,
+        timerTime: 0,
+      },
+      () => {
+        set(this.props.id, this.state);
+      }
+    );
   };
 
   handleKeyPress = (e) => {
@@ -42,27 +61,59 @@ class Stopwatch extends Component {
     }
   };
 
+  handleChange = (e) => {
+    this.setState({ title: e.target.value });
+  };
+
   toggleDisplayColorPicker = () => {
     this.setState({ displayColorPicker: !this.state.displayColorPicker });
   };
 
   handleColorChange = (color) => {
-    this.setState({
-      color: color.hex,
-    });
+    this.setState(
+      {
+        color: color.hex,
+      },
+      () => {
+        set(this.props.id, this.state);
+      }
+    );
   };
 
   handleColorPickerClose = () => {
-    this.setState({ displayColorPicker: false });
+    this.setState({ displayColorPicker: false }, () => {
+      set(this.props.id, this.state);
+    });
   };
 
   addTime = (milliSecondsToAdd) => {
     if (this.state.timerOn) {
       this.stopTimer();
-      this.setState({ timerTime: this.state.timerTime + milliSecondsToAdd });
-    } else {
-      this.setState({ timerTime: this.state.timerTime + milliSecondsToAdd });
     }
+    this.setState(
+      { timerTime: this.state.timerTime + milliSecondsToAdd },
+      () => {
+        set(this.props.id, this.state);
+      }
+    );
+  };
+
+  componentDidMount = async () => {
+    let stopwatchState = await get(this.props.id);
+    if (!stopwatchState) {
+      stopwatchState = {
+        timerOn: false,
+        timerStart: 0,
+        timerTime: 0,
+        displayColorPicker: false,
+        color: "#ea4440",
+        title: "Stopwatch",
+      };
+      set(this.props.id, stopwatchState);
+    }
+    stopwatchState.timerOn = false;
+    stopwatchState.displayColorPicker = false;
+    this.setState(stopwatchState);
   };
 
   render() {
@@ -109,71 +160,91 @@ class Stopwatch extends Component {
     );
     return (
       <div className="Stopwatch" style={style}>
-        <div className="row border-accent" style={{ backgroundColor: this.state.color }}>
+        <div
+          className="row border-accent"
+          style={{ backgroundColor: this.state.color }}
+        >
           <textarea
             rows="1"
             onKeyDown={this.handleKeyPress}
-            defaultValue="Stopwatch"
+            onChange={this.handleChange}
+            onBlur={() => set(this.props.id, this.state)}
+            value={this.state.title}
           ></textarea>
         </div>
         <button
-            className="close-button"
-            onClick={() => this.props.deleteWatch(this.props.id)}
+          className="close-button"
+          onClick={() => this.props.deleteWatch(this.props.id)}
+        >
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 16 16"
+            class="bi bi-x"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              width="1em"
-              height="1em"
-              viewBox="0 0 16 16"
-              class="bi bi-x"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"
-              />
-              <path
-                fill-rule="evenodd"
-                d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"
-              />
-            </svg>
-          </button>
+            <path
+              fill-rule="evenodd"
+              d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"
+            />
+            <path
+              fill-rule="evenodd"
+              d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"
+            />
+          </svg>
+        </button>
         <div className="container">
-        <div className="row">
-          <div className="Stopwatch-display">
-            {hours}:{minutes}:{seconds}:{centiseconds}
-          </div>
-        </div>
-
-        <div className="button-list">
-          {this.state.timerOn === false && this.state.timerTime === 0 && (
-            <button onClick={this.startTimer}>Start</button>
-          )}
-          {this.state.timerOn === true && (
-            <button onClick={this.stopTimer}>Stop</button>
-          )}
-          {this.state.timerOn === false && this.state.timerTime > 0 && (
-            <button onClick={this.startTimer}>Resume</button>
-          )}
-          {this.state.timerOn === false && this.state.timerTime > 0 && (
-            <button onClick={this.resetTimer}>Reset</button>
-          )}
-        </div>
-        <div>
-          <div className="row button-list">
-            <button onClick={() => this.addTime(60000)}>+1:00</button>
-            <button onClick={() => this.addTime(60000 * 15)}>+15:00</button>
-            <button onClick={() => this.addTime(60000 * 60)}>+60:00</button>
-          </div>
-          <div className="row button-list">
-            <button disabled={this.state.timerTime < 60000} onClick={() => this.addTime(-60000)}>-1:00</button>
-            <button disabled={this.state.timerTime < 60000 * 15} onClick={() => this.addTime(-60000 * 15)}>-15:00</button>
-            <button disabled={this.state.timerTime < 60000 * 60} onClick={() => this.addTime(-60000 * 60)}>-60:00</button>
+          <div className="row">
+            <div className="Stopwatch-display">
+              {hours}:{minutes}:{seconds}:{centiseconds}
+            </div>
           </div>
 
-          <div className="button-list"></div>
-          {colorPickerContainer}
-        </div>
+          <div className="button-list">
+            {this.state.timerOn === false && this.state.timerTime === 0 && (
+              <button onClick={this.startTimer}>Start</button>
+            )}
+            {this.state.timerOn === true && (
+              <button onClick={this.stopTimer}>Stop</button>
+            )}
+            {this.state.timerOn === false && this.state.timerTime > 0 && (
+              <button onClick={this.startTimer}>Resume</button>
+            )}
+            {this.state.timerOn === false && this.state.timerTime > 0 && (
+              <button onClick={this.resetTimer}>Reset</button>
+            )}
+          </div>
+          <div>
+            <div className="row button-list">
+              <button onClick={() => this.addTime(60000)}>+1:00</button>
+              <button onClick={() => this.addTime(60000 * 15)}>+15:00</button>
+              <button onClick={() => this.addTime(60000 * 60)}>+60:00</button>
+            </div>
+            <div className="row button-list">
+              <button
+                disabled={this.state.timerTime < 60000}
+                onClick={() => this.addTime(-60000)}
+              >
+                -1:00
+              </button>
+              <button
+                disabled={this.state.timerTime < 60000 * 15}
+                onClick={() => this.addTime(-60000 * 15)}
+              >
+                -15:00
+              </button>
+              <button
+                disabled={this.state.timerTime < 60000 * 60}
+                onClick={() => this.addTime(-60000 * 60)}
+              >
+                -60:00
+              </button>
+            </div>
+
+            <div className="button-list"></div>
+            {colorPickerContainer}
+          </div>
         </div>
       </div>
     );
