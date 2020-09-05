@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3695129eaf4762b04ea259727f4aa675",
+    "revision": "b59a49259f3e8d342afe52dc4738605b",
     "url": "/werkweek/index.html"
   },
   {
