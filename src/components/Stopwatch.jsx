@@ -10,6 +10,7 @@ class Stopwatch extends Component {
     displayColorPicker: false,
     color: "#ea4440",
     title: "Stopwatch",
+    lastIntervalTime: 0
   };
 
   startTimer = () => {
@@ -27,6 +28,7 @@ class Stopwatch extends Component {
       this.setState(
         {
           timerTime: Date.now() - this.state.timerStart,
+          lastIntervalTime: Date.now()
         },
         () => {
           set(this.props.id, this.state);
@@ -47,6 +49,7 @@ class Stopwatch extends Component {
       {
         timerStart: 0,
         timerTime: 0,
+        lastIntervalTime: 0
       },
       () => {
         set(this.props.id, this.state);
@@ -110,8 +113,13 @@ class Stopwatch extends Component {
         title: "Stopwatch",
       };
       set(this.props.id, stopwatchState);
+    } else {
+      if (stopwatchState.timerOn) {
+        // If timer was on when this watch left, use the last logged interval to add time to watch
+        stopwatchState.timerTime = stopwatchState.timerTime + (Date.now() - stopwatchState.lastIntervalTime);
+        this.startTimer();
+      }
     }
-    stopwatchState.timerOn = false;
     stopwatchState.displayColorPicker = false;
     this.setState(stopwatchState);
   };
