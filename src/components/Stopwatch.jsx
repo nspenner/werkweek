@@ -175,15 +175,13 @@ class Stopwatch extends Component {
           className="row border-accent"
           style={{ backgroundColor: this.state.color }}
         >
-          <div>
-            <textarea
-              rows="1"
-              onKeyDown={this.handleKeyPress}
-              onChange={this.handleChange}
-              onBlur={() => set(this.props.id, this.state)}
-              value={this.state.title}
-            ></textarea>
-          </div>
+          <textarea
+            rows="1"
+            onKeyDown={this.handleKeyPress}
+            onChange={this.handleChange}
+            onBlur={() => set(this.props.id, this.state)}
+            value={this.state.title}
+          ></textarea>
         </div>
         <button
           className="close-button"
