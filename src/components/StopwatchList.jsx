@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import AddButton from "./AddButton";
 import Stopwatch from "./Stopwatch";
 
@@ -23,5 +24,11 @@ class StopwatchList extends React.Component {
     );
   }
 }
+
+StopwatchList.propTypes = {
+  watches: PropTypes.array.isRequired,
+  deleteWatch: PropTypes.func.isRequired,
+  addWatch: PropTypes.func.isRequired,
+};
 
 export default StopwatchList;

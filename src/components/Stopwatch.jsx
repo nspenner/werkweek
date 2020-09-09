@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { TwitterPicker } from "react-color";
 import { set, get } from "idb-keyval";
 
@@ -10,7 +11,7 @@ class Stopwatch extends Component {
     displayColorPicker: false,
     color: "#ea4440",
     title: "Stopwatch",
-    lastIntervalTime: 0
+    lastIntervalTime: 0,
   };
 
   startTimer = () => {
@@ -28,7 +29,7 @@ class Stopwatch extends Component {
       this.setState(
         {
           timerTime: Date.now() - this.state.timerStart,
-          lastIntervalTime: Date.now()
+          lastIntervalTime: Date.now(),
         },
         () => {
           set(this.props.id, this.state);
@@ -49,7 +50,7 @@ class Stopwatch extends Component {
       {
         timerStart: 0,
         timerTime: 0,
-        lastIntervalTime: 0
+        lastIntervalTime: 0,
       },
       () => {
         set(this.props.id, this.state);
@@ -116,7 +117,9 @@ class Stopwatch extends Component {
     } else {
       if (stopwatchState.timerOn) {
         // If timer was on when this watch left, use the last logged interval to add time to watch
-        stopwatchState.timerTime = stopwatchState.timerTime + (Date.now() - stopwatchState.lastIntervalTime);
+        stopwatchState.timerTime =
+          stopwatchState.timerTime +
+          (Date.now() - stopwatchState.lastIntervalTime);
         this.startTimer();
       }
     }
@@ -172,13 +175,15 @@ class Stopwatch extends Component {
           className="row border-accent"
           style={{ backgroundColor: this.state.color }}
         >
-          <textarea
-            rows="1"
-            onKeyDown={this.handleKeyPress}
-            onChange={this.handleChange}
-            onBlur={() => set(this.props.id, this.state)}
-            value={this.state.title}
-          ></textarea>
+          <div>
+            <textarea
+              rows="1"
+              onKeyDown={this.handleKeyPress}
+              onChange={this.handleChange}
+              onBlur={() => set(this.props.id, this.state)}
+              value={this.state.title}
+            ></textarea>
+          </div>
         </div>
         <button
           className="close-button"
@@ -188,16 +193,16 @@ class Stopwatch extends Component {
             width="1em"
             height="1em"
             viewBox="0 0 16 16"
-            class="bi bi-x"
+            className="bi bi-x"
             fill="currentColor"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill-rule="evenodd"
+              fillRule="evenodd"
               d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"
             />
             <path
-              fill-rule="evenodd"
+              fillRule="evenodd"
               d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"
             />
           </svg>
@@ -258,5 +263,10 @@ class Stopwatch extends Component {
     );
   }
 }
+
+Stopwatch.propTypes = {
+  id: PropTypes.string.isRequired,
+  deleteWatch: PropTypes.func.isRequired,
+};
 
 export default Stopwatch;
