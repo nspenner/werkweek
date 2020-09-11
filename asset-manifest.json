@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/werkweek/static/css/main.56e5dfda.chunk.css",
-    "main.js": "/werkweek/static/js/main.eb3d47ce.chunk.js",
-    "main.js.map": "/werkweek/static/js/main.eb3d47ce.chunk.js.map",
+    "main.css": "/werkweek/static/css/main.5a94b0f1.chunk.css",
+    "main.js": "/werkweek/static/js/main.22f3398e.chunk.js",
+    "main.js.map": "/werkweek/static/js/main.22f3398e.chunk.js.map",
     "runtime-main.js": "/werkweek/static/js/runtime-main.5da2ad4e.js",
     "runtime-main.js.map": "/werkweek/static/js/runtime-main.5da2ad4e.js.map",
     "static/js/2.b2e8608f.chunk.js": "/werkweek/static/js/2.b2e8608f.chunk.js",
     "static/js/2.b2e8608f.chunk.js.map": "/werkweek/static/js/2.b2e8608f.chunk.js.map",
     "index.html": "/werkweek/index.html",
-    "precache-manifest.0276ceb29a3e0d5e3452d131043daaf8.js": "/werkweek/precache-manifest.0276ceb29a3e0d5e3452d131043daaf8.js",
+    "precache-manifest.3ab1b81726a112dceda1b2edb835ae91.js": "/werkweek/precache-manifest.3ab1b81726a112dceda1b2edb835ae91.js",
     "service-worker.js": "/werkweek/service-worker.js",
-    "static/css/main.56e5dfda.chunk.css.map": "/werkweek/static/css/main.56e5dfda.chunk.css.map",
+    "static/css/main.5a94b0f1.chunk.css.map": "/werkweek/static/css/main.5a94b0f1.chunk.css.map",
     "static/js/2.b2e8608f.chunk.js.LICENSE.txt": "/werkweek/static/js/2.b2e8608f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.5da2ad4e.js",
     "static/js/2.b2e8608f.chunk.js",
-    "static/css/main.56e5dfda.chunk.css",
-    "static/js/main.eb3d47ce.chunk.js"
+    "static/css/main.5a94b0f1.chunk.css",
+    "static/js/main.22f3398e.chunk.js"
   ]
 }
