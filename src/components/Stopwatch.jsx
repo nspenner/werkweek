@@ -214,16 +214,31 @@ class Stopwatch extends Component {
 
           <div className="button-list">
             {this.state.timerOn === false && this.state.timerTime === 0 && (
-              <button onClick={this.startTimer}>Start</button>
+              <button onClick={this.startTimer}>
+                <ion-icon name="play"></ion-icon>
+                <span>Start</span>
+              </button>
             )}
             {this.state.timerOn === true && (
-              <button onClick={this.stopTimer}>Stop</button>
+              <button onClick={this.stopTimer}>
+                <ion-icon name="pause"></ion-icon>
+                <span>Pause</span>
+              </button>
             )}
             {this.state.timerOn === false && this.state.timerTime > 0 && (
-              <button onClick={this.startTimer}>Resume</button>
+              <button onClick={this.startTimer}>
+                <ion-icon name="play"></ion-icon>
+                <span>Resume</span>
+              </button>
             )}
             {this.state.timerOn === false && this.state.timerTime > 0 && (
-              <button onClick={this.resetTimer}>Reset</button>
+              <button onClick={this.resetTimer}>
+                <ion-icon
+                  style={{ "--ionicon-stroke-width": "48px" }}
+                  name="refresh"
+                ></ion-icon>{" "}
+                <span>Reset</span>
+              </button>
             )}
           </div>
           <div>
