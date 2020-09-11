@@ -266,10 +266,8 @@ class Stopwatch extends Component {
               >
                 -60:00
               </button>
+              {colorPickerContainer}
             </div>
-
-            <div className="button-list"></div>
-            {colorPickerContainer}
           </div>
         </div>
       </div>

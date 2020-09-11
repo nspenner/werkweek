@@ -24,7 +24,7 @@ header {
 }
 
 .container {
-  padding: .5rem;
+  padding: .5rem .5rem 1rem .5rem;
 }
 
 .border-accent {
@@ -94,7 +94,7 @@ li {
   padding: .5rem;
   font-size: 14px;
   cursor: pointer;
-  margin-right: 16px;
+  margin-right: .5rem;
   color: var(--text-primary);
   display: inline-flex;
   justify-content: space-evenly;
@@ -164,6 +164,7 @@ textarea:hover:not(:focus) {
   justify-content: center;
   align-items: center;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.5);
+  align-self: flex-end;
 }
 
 .color-selection-button-container > button {
