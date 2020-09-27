@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 class AddButton extends React.Component {
   render() {
     return (
-      <button onClick={this.props.addWatch} className="AddButton">
+      <button onClick={()=>this.props.addWidget('stopwatch')} className="AddButton">
         <svg
           width="1em"
           height="1em"
@@ -28,7 +28,7 @@ class AddButton extends React.Component {
 }
 
 AddButton.propTypes = {
-  addWatch: PropTypes.func.isRequired,
+  addWidget: PropTypes.func.isRequired,
 }
 
 export default AddButton;
