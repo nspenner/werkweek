@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import AddButton from "./AddButton";
-import Stopwatch from "./Stopwatch";
+import Widget from "./Widget";
 
 class WidgetList extends React.Component {
   render() {
     const widgets = this.props.widgets.map((widget) => {
       return (
         <li key={widget.id}>
-          {widget.type==='stopwatch' && <Stopwatch deleteWatch={this.props.deleteWidget} id={widget.id} />}
+          <Widget widget={widget} deleteWidget={this.props.deleteWidget} />
         </li>
       );
     });
