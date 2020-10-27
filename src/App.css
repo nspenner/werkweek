@@ -7,6 +7,20 @@
   --input-background: hsl(0, 0%, 95%);
 }
 
+/* UTIL */
+
+.padding-x-small {
+  padding: 0 .5rem;
+}
+
+.padding-y-small {
+  padding: .5rem 0;
+}
+
+.padding-small {
+  padding: .5rem
+}
+
 .App {
   background-color: var(--background);
   max-width: 1000px;

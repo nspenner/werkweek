@@ -1,11 +1,52 @@
 import React from "react";
 import Proptypes from "prop-types";
 import ReactCountdown from "react-countdown";
-import Widget from "./Widget";
 import dayjs from "dayjs";
+
+// Random component
+const Completionist = () => <span>You are good to go!</span>;
+
+// Renderer callback with condition
+const renderer = ({ hours, minutes, seconds, completed }) => {
+  // Render a countdown
+  return (
+    <div className="row countdown-display">
+      <input
+        value={hours}
+        name="hour"
+        maxLength="2"
+        placeholder="HH"
+        aria-label="Hour"
+        className="countdown-input"
+        readOnly
+      />
+      :
+      <input
+        value={minutes}
+        name="minute"
+        maxLength="2"
+        placeholder="MM"
+        aria-label="Minute"
+        className="countdown-input"
+        readOnly
+      />
+      :
+      <input
+        value={seconds}
+        name="second"
+        maxLength="2"
+        placeholder="SS"
+        aria-label="Second"
+        className="countdown-input"
+        readOnly
+      />
+    </div>
+  );
+};
 
 class Countdown extends React.Component {
   countdownApi = null;
+
   state = {
     date: Date.now() + 100,
     displayCountdown: false,
@@ -87,7 +128,7 @@ class Countdown extends React.Component {
           className="row border-accent"
           style={{ backgroundColor: this.state.color }}
         >
-          <textarea rows="1" value="Countdown"></textarea>
+          <textarea rows="1" defaultValue="Countdown"></textarea>
         </div>
         <button
           className="close-button"
@@ -171,25 +212,32 @@ class Countdown extends React.Component {
               onStart={this.handleUpdate}
               onPause={this.handlePause}
               onComplete={this.handleUpdate}
+              renderer={renderer}
               autoStart
             />
-            <div>
+            <div className="row button-list padding-x-small">
               <button
                 type="button"
                 onClick={this.handleStartClick}
                 disabled={!this.isPaused() || this.isCompleted()}
               >
-                Start
-              </button>{" "}
+                <ion-icon name="play"></ion-icon>
+                <span>Start</span>
+              </button>
               <button
                 type="button"
                 onClick={this.handlePauseClick}
                 disabled={this.isPaused() || this.isCompleted()}
               >
-                Pause
+                <ion-icon name="pause"></ion-icon>
+                <span>Pause</span>
               </button>{" "}
               <button type="button" onClick={this.handleResetClick}>
-                Reset
+                <ion-icon
+                  style={{ "--ionicon-stroke-width": "48px" }}
+                  name="refresh"
+                ></ion-icon>
+                <span>Reset</span>
               </button>
             </div>
           </div>
