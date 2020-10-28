@@ -43,6 +43,18 @@ class App extends React.Component {
     this.setState({
       widgets,
     });
+
+    // Let's check if the browser supports notifications
+    if (!("Notification" in window)) {
+      alert("This browser does not support desktop notification");
+    }
+
+    if (Notification.permission !== "denied") {
+      Notification.requestPermission();
+    }
+
+    // At last, if the user has denied notifications, and you
+    // want to be respectful there is no need to bother them any more.
   };
 
   render() {

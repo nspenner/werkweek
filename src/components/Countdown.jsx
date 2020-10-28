@@ -3,9 +3,6 @@ import Proptypes from "prop-types";
 import ReactCountdown from "react-countdown";
 import dayjs from "dayjs";
 
-// Random component
-const Completionist = () => <span>You are good to go!</span>;
-
 // Renderer callback with condition
 const renderer = ({ hours, minutes, seconds, completed }) => {
   // Render a countdown
@@ -53,15 +50,21 @@ class Countdown extends React.Component {
     hour: "",
     minute: "",
     second: "",
+    title: "Countdown"
   };
 
-  handleChange = (event) => {
+  handleCountdownInputChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value.replace(/\D/, ""),
     });
   };
 
-  handleSubmit = () => {
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
     if (this.state.value !== 0) {
       const date = dayjs()
         .add(this.state.hour, "h")
@@ -97,6 +100,11 @@ class Countdown extends React.Component {
     this.forceUpdate();
   };
 
+  handleComplete = () => {
+    new Notification(`${this.state.title}`)
+    this.forceUpdate();
+  };
+
   handlePause = () => {
     this.forceUpdate();
   };
@@ -104,6 +112,13 @@ class Countdown extends React.Component {
   handleKeyDown = (e) => {
     if (e.key === "Enter") {
       this.handleSubmit();
+    }
+  };
+
+  handleKeyPress = (e) => {
+    const code = e.keyCode ? e.keyCode : e.which;
+    if (code === 13) {
+      e.target.blur();
     }
   };
 
@@ -128,7 +143,13 @@ class Countdown extends React.Component {
           className="row border-accent"
           style={{ backgroundColor: this.state.color }}
         >
-          <textarea rows="1" defaultValue="Countdown"></textarea>
+          <textarea
+            name="title"
+            rows="1"
+            onKeyDown={this.handleKeyPress}
+            onChange={this.handleChange}
+            value={this.state.title}
+          ></textarea>        
         </div>
         <button
           className="close-button"
@@ -158,7 +179,7 @@ class Countdown extends React.Component {
               <input
                 value={this.state.hour}
                 name="hour"
-                onChange={this.handleChange}
+                onChange={this.handleCountdownInputChange}
                 maxLength="2"
                 placeholder="HH"
                 aria-label="Hour"
@@ -168,7 +189,7 @@ class Countdown extends React.Component {
               <input
                 value={this.state.minute}
                 name="minute"
-                onChange={this.handleChange}
+                onChange={this.handleCountdownInputChange}
                 maxLength="2"
                 placeholder="MM"
                 aria-label="Minute"
@@ -178,7 +199,7 @@ class Countdown extends React.Component {
               <input
                 value={this.state.second}
                 name="second"
-                onChange={this.handleChange}
+                onChange={this.handleCountdownInputChange}
                 maxLength="2"
                 placeholder="SS"
                 aria-label="Second"
@@ -211,7 +232,7 @@ class Countdown extends React.Component {
               onMount={this.handleUpdate}
               onStart={this.handleUpdate}
               onPause={this.handlePause}
-              onComplete={this.handleUpdate}
+              onComplete={this.handleComplete}
               renderer={renderer}
               autoStart
             />
