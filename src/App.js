@@ -1,5 +1,5 @@
 import React from "react";
-import StopwatchList from "./components/StopwatchList";
+import WidgetList from "./components/WidgetList";
 import { set, get, del } from "idb-keyval";
 import { v4 as uuidv4 } from "uuid";
 
@@ -7,7 +7,7 @@ import "./App.css";
 
 class App extends React.Component {
   state = {
-    watches: [],
+    widgets: [],
   };
 
   getValue = (key) => {
@@ -16,34 +16,45 @@ class App extends React.Component {
     });
   };
 
-  addWatch = () => {
-    const watches = [
-      ...this.state.watches,
-      { index: this.state.watches.length + 1, id: uuidv4() },
+  addWidget = (type) => {
+    const widgets = [
+      ...this.state.widgets,
+      { index: this.state.widgets.length + 1, id: uuidv4(), type },
     ];
-    set("watches", watches);
+    set("widgets", widgets);
     this.setState({
-      watches,
+      widgets,
     });
   };
 
-  deleteWatch = (id) => {
-    console.log(id);
-    let watches = this.state.watches;
-    let filteredWatches = watches.filter((watch) => watch.id !== id);
-    set('watches', filteredWatches);
+  deleteWidget = (id) => {
+    let widgets = this.state.widgets;
+    let filteredwidgets = widgets.filter((widget) => widget.id !== id);
+    set("widgets", filteredwidgets);
     del(id);
-    this.setState({ watches: filteredWatches });
+    this.setState({ widgets: filteredwidgets });
   };
 
   componentDidMount = async () => {
-    let watches = await get("watches");
-    if (!watches) {
-      watches = [{ index: 0, id: uuidv4() }];
+    let widgets = await get("widgets");
+    if (!widgets) {
+      widgets = [{ index: 0, id: uuidv4(), type: "stopwatch" }];
     }
     this.setState({
-      watches,
+      widgets,
     });
+
+    // Let's check if the browser supports notifications
+    if (!("Notification" in window)) {
+      alert("This browser does not support desktop notification");
+    }
+
+    if (Notification.permission !== "denied") {
+      Notification.requestPermission();
+    }
+
+    // At last, if the user has denied notifications, and you
+    // want to be respectful there is no need to bother them any more.
   };
 
   render() {
@@ -54,10 +65,10 @@ class App extends React.Component {
           <h1>WerkWeek</h1>
         </header>
         <div>
-          <StopwatchList
-            watches={this.state.watches}
-            addWatch={this.addWatch}
-            deleteWatch={this.deleteWatch}
+          <WidgetList
+            widgets={this.state.widgets}
+            addWidget={this.addWidget}
+            deleteWidget={this.deleteWidget}
           />
         </div>
       </div>
@@ -65,7 +76,7 @@ class App extends React.Component {
   }
 
   handleChange = (event) => {
-    this.setState({ watches: event.target.value });
+    this.setState({ widgets: event.target.value });
   };
 }
 

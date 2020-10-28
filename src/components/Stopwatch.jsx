@@ -236,7 +236,7 @@ class Stopwatch extends Component {
                 <ion-icon
                   style={{ "--ionicon-stroke-width": "48px" }}
                   name="refresh"
-                ></ion-icon>{" "}
+                ></ion-icon>
                 <span>Reset</span>
               </button>
             )}
