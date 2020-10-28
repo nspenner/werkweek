@@ -2,6 +2,17 @@ import React from "react";
 import Proptypes from "prop-types";
 import ReactCountdown from "react-countdown";
 import dayjs from "dayjs";
+import { set, get } from "idb-keyval";
+
+const defaultState = {
+  date: Date.now() + 100,
+  displayCountdown: false,
+  hour: "",
+  minute: "",
+  second: "",
+  title: "Countdown",
+  isPaused: false
+};
 
 // Renderer callback with condition
 const renderer = ({ hours, minutes, seconds, completed }) => {
@@ -44,23 +55,32 @@ const renderer = ({ hours, minutes, seconds, completed }) => {
 class Countdown extends React.Component {
   countdownApi = null;
 
-  state = {
-    date: Date.now() + 100,
-    displayCountdown: false,
-    hour: "",
-    minute: "",
-    second: "",
-    title: "Countdown"
+  state = defaultState;
+
+  componentDidMount = async () => {
+    let countdownState = await get(this.props.id);
+    if (!countdownState) {
+      countdownState = defaultState;
+      set(this.props.id, countdownState);
+    } 
+    this.setState(countdownState);
   };
 
   handleCountdownInputChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value.replace(/\D/, ""),
-    });
+    this.setState(
+      {
+        [event.target.name]: event.target.value.replace(/\D/, ""),
+      },
+      () => {
+        set(this.props.id, this.state);
+      }
+    );
   };
 
   handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.name]: event.target.value }, () => {
+      set(this.props.id, this.state);
+    });
   };
 
   handleSubmit = (event) => {
@@ -71,10 +91,15 @@ class Countdown extends React.Component {
         .add(this.state.minute, "m")
         .add(this.state.second, "s")
         .toDate();
-      this.setState({
-        date,
-        displayCountdown: true,
-      });
+      this.setState(
+        {
+          date,
+          displayCountdown: true,
+        },
+        () => {
+          set(this.props.id, this.state);
+        }
+      );
     }
   };
 
@@ -84,16 +109,22 @@ class Countdown extends React.Component {
 
   handlePauseClick = () => {
     this.countdownApi && this.countdownApi.pause();
+    this.setState({})
   };
 
   handleResetClick = () => {
-    this.setState({
-      date: Date.now(),
-      displayCountdown: false,
-      hour: "",
-      minute: "",
-      second: "",
-    });
+    this.setState(
+      {
+        date: Date.now(),
+        displayCountdown: false,
+        hour: "",
+        minute: "",
+        second: "",
+      },
+      () => {
+        set(this.props.id, this.state);
+      }
+    );
   };
 
   handleUpdate = () => {
@@ -101,7 +132,7 @@ class Countdown extends React.Component {
   };
 
   handleComplete = () => {
-    new Notification(`${this.state.title}`)
+    new Notification(`${this.state.title}`);
     this.forceUpdate();
   };
 
@@ -148,8 +179,9 @@ class Countdown extends React.Component {
             rows="1"
             onKeyDown={this.handleKeyPress}
             onChange={this.handleChange}
+            onBlur={() => set(this.props.id, this.state)}
             value={this.state.title}
-          ></textarea>        
+          ></textarea>
         </div>
         <button
           className="close-button"
