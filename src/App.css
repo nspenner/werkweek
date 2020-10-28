@@ -207,17 +207,17 @@ textarea:hover:not(:focus) {
 }
 
 .AddButton {
-  width: 4rem;
-  height: 4rem;
+  padding: 0.5rem 1rem;
   background-color: rgb(234, 68, 64);
-  border-radius: 4rem;
+  border-radius: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   border: none;
-  font-size: 4rem;
+  font-size: 1.5rem;
   color: white;
+  margin: 1rem;
 }
 
 .AddButton:hover {
