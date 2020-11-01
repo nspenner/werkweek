@@ -1,14 +1,14 @@
 import React, { Component } from "react";
+import WidgetTitle from "./WidgetTitle";
 import PropTypes from "prop-types";
-import { TwitterPicker } from "react-color";
 import { set, get } from "idb-keyval";
+import ColorPicker from "./ColorPicker";
 
 class Stopwatch extends Component {
   state = {
     timerOn: false,
     timerStart: 0,
     timerTime: 0,
-    displayColorPicker: false,
     color: "#ea4440",
     title: "Stopwatch",
     lastIntervalTime: 0,
@@ -66,11 +66,9 @@ class Stopwatch extends Component {
   };
 
   handleChange = (e) => {
-    this.setState({ title: e.target.value });
-  };
-
-  toggleDisplayColorPicker = () => {
-    this.setState({ displayColorPicker: !this.state.displayColorPicker });
+    this.setState({ title: e.target.value }, () => {
+      set(this.props.id, this.state);
+    });
   };
 
   handleColorChange = (color) => {
@@ -82,12 +80,6 @@ class Stopwatch extends Component {
         set(this.props.id, this.state);
       }
     );
-  };
-
-  handleColorPickerClose = () => {
-    this.setState({ displayColorPicker: false }, () => {
-      set(this.props.id, this.state);
-    });
   };
 
   addTime = (milliSecondsToAdd) => {
@@ -109,7 +101,6 @@ class Stopwatch extends Component {
         timerOn: false,
         timerStart: 0,
         timerTime: 0,
-        displayColorPicker: false,
         color: "#ea4440",
         title: "Stopwatch",
       };
@@ -123,7 +114,6 @@ class Stopwatch extends Component {
         this.startTimer();
       }
     }
-    stopwatchState.displayColorPicker = false;
     this.setState(stopwatchState);
   };
 
@@ -134,77 +124,15 @@ class Stopwatch extends Component {
     let minutes = ("0" + (Math.floor(timerTime / 60000) % 60)).slice(-2);
     let hours = ("0" + Math.floor(timerTime / 3600000)).slice(-2);
     let style = { borderColor: this.state.color };
-    let colorPickerContainer = this.state.displayColorPicker ? (
-      <div style={{ marginLeft: "auto" }}>
-        <div className="color-selection-button-container">
-          <button
-            style={{ backgroundColor: this.state.color }}
-            onClick={this.toggleDisplayColorPicker}
-          ></button>
-        </div>
-        <div style={{ position: "relative" }}>
-          <div className="picker-container">
-            <TwitterPicker
-              color={this.state.color}
-              colors={[
-                "#EA4440",
-                "#33055d",
-                "#40b8bb",
-                "#0F9563",
-                "#f77474",
-                "#3041AF",
-              ]}
-              onChange={this.handleColorChange}
-              triangle="top-right"
-            />
-          </div>
-          <div className="cover" onClick={this.handleColorPickerClose}></div>
-        </div>
-      </div>
-    ) : (
-      <div className="color-selection-button-container">
-        <button
-          style={{ backgroundColor: this.state.color }}
-          onClick={this.toggleDisplayColorPicker}
-        ></button>
-      </div>
-    );
+
     return (
       <div className="Stopwatch" style={style}>
-        <div
-          className="row border-accent"
-          style={{ backgroundColor: this.state.color }}
-        >
-          <textarea
-            rows="1"
-            onKeyDown={this.handleKeyPress}
-            onChange={this.handleChange}
-            onBlur={() => set(this.props.id, this.state)}
-            value={this.state.title}
-          ></textarea>
-        </div>
-        <button
-          className="close-button"
-          onClick={() => this.props.deleteWatch(this.props.id)}
-        >
-          <svg
-            width="1em"
-            height="1em"
-            viewBox="0 0 16 16"
-            className="bi bi-x"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"
-            />
-            <path
-              fillRule="evenodd"
-              d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"
-            />
-          </svg>
-        </button>
+        <WidgetTitle
+          titleValue={this.state.title}
+          backgroundColor={this.state.color}
+          onDelete={() => this.props.deleteWatch(this.props.id)}
+          onChange={this.handleChange}
+        />
         <div className="container">
           <div className="row">
             <div className="Stopwatch-display">
@@ -266,7 +194,11 @@ class Stopwatch extends Component {
               >
                 -60:00
               </button>
-              {colorPickerContainer}
+              <ColorPicker 
+                color={this.state.color}
+                displayColorPicker={false}
+                onChange={this.handleColorChange}
+              />
             </div>
           </div>
         </div>

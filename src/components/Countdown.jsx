@@ -1,4 +1,6 @@
 import React from "react";
+import WidgetTitle from "./WidgetTitle";
+import ColorPicker from "./ColorPicker";
 import Proptypes from "prop-types";
 import ReactCountdown from "react-countdown";
 import dayjs from "dayjs";
@@ -11,11 +13,12 @@ const defaultState = {
   minute: "",
   second: "",
   title: "Countdown",
-  isPaused: false
+  isPaused: false,
+  color: "#ea4440",
 };
 
 // Renderer callback with condition
-const renderer = ({ hours, minutes, seconds, completed }) => {
+const renderer = ({ hours, minutes, seconds }) => {
   // Render a countdown
   return (
     <div className="row countdown-display">
@@ -53,16 +56,15 @@ const renderer = ({ hours, minutes, seconds, completed }) => {
 };
 
 class Countdown extends React.Component {
-  countdownApi = null;
-
   state = defaultState;
+  countdownApi = null;
 
   componentDidMount = async () => {
     let countdownState = await get(this.props.id);
     if (!countdownState) {
       countdownState = defaultState;
       set(this.props.id, countdownState);
-    } 
+    }
     this.setState(countdownState);
   };
 
@@ -109,7 +111,7 @@ class Countdown extends React.Component {
 
   handlePauseClick = () => {
     this.countdownApi && this.countdownApi.pause();
-    this.setState({})
+    this.setState({});
   };
 
   handleResetClick = () => {
@@ -146,11 +148,15 @@ class Countdown extends React.Component {
     }
   };
 
-  handleKeyPress = (e) => {
-    const code = e.keyCode ? e.keyCode : e.which;
-    if (code === 13) {
-      e.target.blur();
-    }
+  handleColorChange = (color) => {
+    this.setState(
+      {
+        color: color.hex,
+      },
+      () => {
+        set(this.props.id, this.state);
+      }
+    );
   };
 
   setRef = (countdown) => {
@@ -170,90 +176,71 @@ class Countdown extends React.Component {
   render() {
     return (
       <div className="countdown">
-        <div
-          className="row border-accent"
-          style={{ backgroundColor: this.state.color }}
-        >
-          <textarea
-            name="title"
-            rows="1"
-            onKeyDown={this.handleKeyPress}
-            onChange={this.handleChange}
-            onBlur={() => set(this.props.id, this.state)}
-            value={this.state.title}
-          ></textarea>
-        </div>
-        <button
-          className="close-button"
-          onClick={() => this.props.deleteWidget(this.props.id)}
-        >
-          <svg
-            width="1em"
-            height="1em"
-            viewBox="0 0 16 16"
-            className="bi bi-x"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"
-            />
-            <path
-              fillRule="evenodd"
-              d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"
-            />
-          </svg>
-        </button>
+        <WidgetTitle
+          titleValue={this.state.title}
+          backgroundColor={this.state.color}
+          onDelete={() => this.props.deleteWidget(this.props.id)}
+          onChange={this.handleChange}
+          inputName="title"
+        />
         {!this.state.displayCountdown && (
-          <form action="" onSubmit={this.handleSubmit}>
-            <div className="row countdown-display">
-              <input
-                value={this.state.hour}
-                name="hour"
-                onChange={this.handleCountdownInputChange}
-                maxLength="2"
-                placeholder="HH"
-                aria-label="Hour"
-                className="countdown-input"
-              />
-              :
-              <input
-                value={this.state.minute}
-                name="minute"
-                onChange={this.handleCountdownInputChange}
-                maxLength="2"
-                placeholder="MM"
-                aria-label="Minute"
-                className="countdown-input"
-              />
-              :
-              <input
-                value={this.state.second}
-                name="second"
-                onChange={this.handleCountdownInputChange}
-                maxLength="2"
-                placeholder="SS"
-                aria-label="Second"
-                className="countdown-input"
+          <div>
+            <form action="" onSubmit={this.handleSubmit}>
+              <div className="row countdown-display">
+                <input
+                  value={this.state.hour}
+                  name="hour"
+                  onChange={this.handleCountdownInputChange}
+                  maxLength="2"
+                  placeholder="HH"
+                  aria-label="Hour"
+                  className="countdown-input"
+                />
+                :
+                <input
+                  value={this.state.minute}
+                  name="minute"
+                  onChange={this.handleCountdownInputChange}
+                  maxLength="2"
+                  placeholder="MM"
+                  aria-label="Minute"
+                  className="countdown-input"
+                />
+                :
+                <input
+                  value={this.state.second}
+                  name="second"
+                  onChange={this.handleCountdownInputChange}
+                  maxLength="2"
+                  placeholder="SS"
+                  aria-label="Second"
+                  className="countdown-input"
+                />
+              </div>
+              <label
+                htmlFor="submit"
+                className="standard-button margin-standard"
+                tabIndex="0"
+                onKeyDown={this.handleKeyDown}
+              >
+                <input
+                  id="submit"
+                  type="submit"
+                  value="Start"
+                  className="hidden"
+                />
+                <ion-icon name="play"></ion-icon>
+                <span>Start</span>
+              </label>
+            </form>
+            <div className="row button-list padding-x-small">
+              <ColorPicker
+                color={this.state.color}
+                displayColorPicker={false}
+                onChange={this.handleColorChange}
               />
             </div>
-            <label
-              htmlFor="submit"
-              className="standard-button margin-standard"
-              tabIndex="0"
-              onKeyDown={this.handleKeyDown}
-            >
-              <input
-                id="submit"
-                type="submit"
-                value="Start"
-                className="hidden"
-              />
-              <ion-icon name="play"></ion-icon>
-              <span>Start</span>
-            </label>
-          </form>
+          </div>
         )}
         {this.state.displayCountdown && (
           <div>
@@ -292,6 +279,13 @@ class Countdown extends React.Component {
                 ></ion-icon>
                 <span>Reset</span>
               </button>
+            </div>
+            <div className="row button-list padding-x-small">
+              <ColorPicker
+                color={this.state.color}
+                displayColorPicker={false}
+                onChange={this.handleColorChange}
+              />
             </div>
           </div>
         )}
