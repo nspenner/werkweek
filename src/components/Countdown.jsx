@@ -219,7 +219,7 @@ class Countdown extends React.Component {
               </div>
               <label
                 htmlFor="submit"
-                className="standard-button margin-standard"
+                className="button margin-standard"
                 tabIndex="0"
                 onKeyDown={this.handleKeyDown}
               >

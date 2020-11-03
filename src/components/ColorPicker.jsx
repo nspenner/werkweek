@@ -13,20 +13,17 @@ class ColorPicker extends React.Component {
   };
 
   toggleDisplayColorPicker = () => {
-      console.log('hi');
     this.setState({ displayColorPicker: !this.state.displayColorPicker });
   };
 
   render() {
     return this.state.displayColorPicker ? (
-      <div style={{ marginLeft: "auto" }}>
+      <div className="full-width flex">
         <div className="color-selection-button-container">
           <button
             style={{ backgroundColor: this.props.color }}
             onClick={this.toggleDisplayColorPicker}
           ></button>
-        </div>
-        <div style={{ position: "relative" }}>
           <div className="picker-container">
             <TwitterPicker
               color={this.props.color}
@@ -42,15 +39,18 @@ class ColorPicker extends React.Component {
               triangle="top-right"
             />
           </div>
+
           <div className="cover" onClick={this.handleColorPickerClose}></div>
         </div>
       </div>
     ) : (
-      <div className="color-selection-button-container">
-        <button
-          style={{ backgroundColor: this.props.color }}
-          onClick={this.toggleDisplayColorPicker}
-        ></button>
+      <div className="full-width flex">
+        <div className="color-selection-button-container">
+          <button
+            style={{ backgroundColor: this.props.color }}
+            onClick={this.toggleDisplayColorPicker}
+          ></button>
+        </div>
       </div>
     );
   }
@@ -59,7 +59,7 @@ class ColorPicker extends React.Component {
 ColorPicker.propTypes = {
   color: PropTypes.string.isRequired,
   displayColorPicker: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 export default ColorPicker;
