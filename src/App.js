@@ -3,6 +3,7 @@ import WidgetList from "./components/WidgetList";
 import { set, get, del } from "idb-keyval";
 import { v4 as uuidv4 } from "uuid";
 
+import "normalize.css";
 import "./App.css";
 
 class App extends React.Component {
@@ -57,7 +58,7 @@ class App extends React.Component {
     return (
       <div className="App">
         {this.state.testCounter}
-        <header>
+        <header className="flex-container--centered">
           <h1>WerkWeek</h1>
         </header>
         <div>
