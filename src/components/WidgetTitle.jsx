@@ -11,14 +11,14 @@ class WidgetTitle extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="border-curve--top" style={{ backgroundColor: this.props.backgroundColor }}>
         {" "}
         <div
-          className="row border-accent"
-          style={{ backgroundColor: this.props.backgroundColor }}
+          className="p--sml flex-container--centered"
         >
           <textarea
             name={this.props.inputName}
+            className="title__input"
             rows="1"
             onKeyDown={this.handleKeyPress}
             onChange={this.props.onChange}

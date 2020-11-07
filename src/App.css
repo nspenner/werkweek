@@ -1,109 +1,242 @@
+/* Global */
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --primary: #ea4440;
-  --stopwatchBackground: #ffffff;
+  --widgetBackground: #ffffff;
   --text-primary: hsl(5, 8%, 30%);
   --text-disabled: hsl(4, 4%, 65%);
   --background-disabled: hsl(4, 4%, 95%);
   --input-background: hsl(0, 0%, 95%);
 }
 
-/* UTIL */
-
-.padding-x-small {
-  padding: 0 .5rem;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #2f2f2f;
+    --widgetBackground: #4b4b4b;
+    --text-primary: hsl(4, 10%, 95%);
+    --background-disabled: hsl(0, 2.2%, 35.7%);
+    --input-background: #2f2f2f;
+  }
 }
 
-.padding-y-small {
-  padding: .5rem 0;
+body {
+  color: var(--text-primary);
+  background-color: var(--background);
 }
 
-.padding-small {
-  padding: .5rem
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Pacifico", "Fira Sans", sans-serif;
+  font-size: 2rem;
 }
 
-.flex {
+p,
+span,
+label {
+  font-family: "Fira Sans", sans-serif;
+  font-size: 1rem;
+}
+
+input[type="submit"],
+button {
+  font-family: "Fira Sans", sans-serif;
+  color: var(--text-primary);
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:disabled {
+  color: var(--text-disabled);
+  background: var(--background-disabled);
+  cursor: not-allowed;
+}
+
+/* End Global */
+
+/* Utility */
+
+.m--non {
+  margin: 0;
+}
+
+.m--sml {
+  margin: 0.5rem;
+}
+
+.m--med {
+  margin: 1rem;
+}
+
+.m--lrg {
+  margin: 1.5rem;
+}
+
+.m--center {
+  margin: 0 auto;
+}
+
+.p--non {
+  padding: 0;
+}
+
+.p--sml {
+  padding: 0.5rem;
+}
+
+.p--med {
+  margin: 1rem;
+}
+
+.p--lrg {
+  margin: 1.5rem;
+}
+
+.flow--sml > * + * {
+  margin-top: 0.5rem;
+}
+
+.flow--med > * + * {
+  margin-top: 1rem;
+}
+
+.flow--lrg > * + * {
+  margin-top: 1.5rem;
+}
+
+.border-curve--top {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.border-curve {
+  border-radius: 6px;
+}
+
+.flex-container {
   display: flex;
 }
 
-.full-width {
-  width: 100%;
+.flex-container--column {
+  display: flex;
+  flex-direction: column;
 }
 
-/* /UTIL */
+.flex-container--centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-/* SITEWIDE */
+.sans {
+  font-family: "Fira Sans", sans-serif;
+}
 
-.button,
-.button-list button {
+.monospace {
   font-family: "Fira Code", monospace;
+}
+
+.text--lrg {
+  font-size: 1.5rem;
+}
+
+.text--med {
+  font-size: 1rem;
+}
+
+.text--sml {
+  font-size: 0.5rem;
+}
+
+.hidden {
+  display: none;
+}
+
+/* End Utility */
+
+/* Layout */
+
+.widget-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  list-style: none;
+  gap: 1rem;
+  max-width: 1000px;
+}
+
+.widget-container {
+  position: relative;
+  background-color: var(--widgetBackground);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12),
+    0 4px 4px rgba(0, 0, 0, 0.12), 0 8px 8px rgba(0, 0, 0, 0.12),
+    0 16px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* End Layout */
+
+/* Class Components */
+.button,
+.button-list > button {
   border: 1px solid var(--text-primary);
-  background: var(--stopwatchBackground);
   border-radius: 6px;
   padding: 0.5rem;
   font-size: 14px;
-  cursor: pointer;
-  margin-right: 0.5rem;
-  color: var(--text-primary);
   display: inline-flex;
   justify-content: space-evenly;
   align-items: center;
 }
 
-/* /SITEWIDE */
+.button-list > button + button {
+  margin-left: 0.5rem;
+}
 
-.App {
-  background-color: var(--background);
-  max-width: 1000px;
-  margin: 0 auto;
+/* Handles inline spanned icons */
+.button-list button > *,
+.button > * {
+  margin-right: 0.5rem;
+}
+
+.title__input {
+  resize: none;
+  border: none;
+  background-color: transparent;
+  color: white;
   font-family: "Fira Sans", sans-serif;
-}
-
-header {
+  font-size: 1.5rem;
+  padding: 0.25rem 0;
+  letter-spacing: 1px;
+  width: 85%;
   text-align: center;
-  font-family: "Pacifico", "Fira Sans", sans-serif;
-  color: var(--text-primary);
+  overflow: hidden;
 }
 
-.row {
-  display: flex;
+.title__input:focus {
+  background: white;
+  color: hsl(1, 20%, 20%);
 }
 
-.container {
-  padding: 0.5rem 0.5rem 1rem 0.5rem;
+.title__input:hover:not(:focus) {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
-.border-accent {
-  background-color: var(--primary);
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  padding: 0.5rem;
-}
-
-li {
-  width: 100%;
-  padding: 1rem;
-  box-sizing: border-box;
-}
-
-.Stopwatch {
-  border-radius: 6px;
-  position: relative;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12),
-    0 4px 4px rgba(0, 0, 0, 0.12), 0 8px 8px rgba(0, 0, 0, 0.12),
-    0 16px 16px rgba(0, 0, 0, 0.12);
-  background-color: var(--stopwatchBackground);
-  color: var(--text-primary);
-}
-
-.Stopwatch-display {
-  width: 200px;
+.countdown__input {
+  min-width: 0;
+  font-size: 2rem;
   text-align: center;
   font-family: "Fira Code", monospace;
-  font-weight: 500;
-  font-size: 1.5rem;
-  margin: 0 auto;
+  background: var(--input-background);
+  color: var(--text-primary);
+  border-radius: 6px;
+  border: none;
 }
+/* End Class Components */
 
+/* Exceptions */
 .close-button {
   background: none;
   border: none;
@@ -126,54 +259,12 @@ li {
   background: rgba(0, 0, 0, 0.1);
 }
 
-.button-list {
-  margin-top: 8px;
-}
-
-.button-list button > *, .button > * {
-  margin-right: 0.5rem;
-}
-
-.button-list button > *:last-child, .button > *:last-child {
-  margin-right: 0;
-}
-
-button:disabled {
-  color: var(--text-disabled);
-  background: var(--background-disabled);
-  cursor: not-allowed;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  grid-auto-rows: minmax(246px, auto);
-  margin: 0 auto;
-}
-
-textarea {
-  resize: none;
-  border: none;
-  background-color: transparent;
-  color: white;
-  font-family: "Fira Sans", sans-serif;
-  font-size: 1.5rem;
-  padding: 0.25rem 0;
-  letter-spacing: 1px;
-  width: 85%;
-  text-align: center;
-  margin: 0 auto;
-}
-
-textarea:focus {
-  background: white;
-  color: hsl(1, 20%, 20%);
-}
-
-textarea:hover:not(:focus) {
-  background-color: rgba(0, 0, 0, 0.1);
+.cover {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
 }
 
 .picker-container {
@@ -205,84 +296,4 @@ textarea:hover:not(:focus) {
   border: none;
   cursor: pointer;
 }
-
-.cover {
-  position: fixed;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-}
-
-.placeholder-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.AddButton {
-  padding: 0.5rem 1rem;
-  background-color: rgb(234, 68, 64);
-  border-radius: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border: none;
-  font-size: 1.5rem;
-  color: white;
-  margin: 1rem;
-}
-
-.AddButton:hover {
-  background-color: hsl(1, 70%, 48%);
-}
-
-.countdown {
-  border-radius: 6px;
-  position: relative;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12),
-    0 4px 4px rgba(0, 0, 0, 0.12), 0 8px 8px rgba(0, 0, 0, 0.12),
-    0 16px 16px rgba(0, 0, 0, 0.12);
-  background-color: var(--stopwatchBackground);
-  color: var(--text-primary);
-  height: 100%;
-}
-
-.countdown-input {
-  min-width: 0;
-  margin: 1rem 0.5rem;
-  font-size: 2rem;
-  padding: 0.5rem;
-  text-align: center;
-  font-family: "Fira Code", monospace;
-  background: var(--input-background);
-  color: var(--text-primary);
-  border-radius: 6px;
-  border: none;
-}
-
-.countdown-display {
-  font-size: 2rem;
-  align-items: center;
-}
-
-.hidden {
-  display: none;
-}
-
-.margin-standard {
-  margin: .5rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #2f2f2f;
-    --stopwatchBackground: #4b4b4b;
-    --text-primary: hsl(4, 10%, 95%);
-    --background-disabled: hsl(0, 2.2%, 35.7%);
-    --input-background: #2f2f2f;
-  }
-}
+/* End Exceptions */
