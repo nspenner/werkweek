@@ -21,34 +21,34 @@ const defaultState = {
 const renderer = ({ hours, minutes, seconds }) => {
   // Render a countdown
   return (
-    <div className="flex-container--centered">
+    <div className="row countdown-display">
       <input
         value={hours}
         name="hour"
         maxLength="2"
         placeholder="HH"
         aria-label="Hour"
-        className="countdown__input  p--sml"
+        className="countdown-input"
         readOnly
       />
-      <span className="m--sml">:</span>
+      :
       <input
         value={minutes}
         name="minute"
         maxLength="2"
         placeholder="MM"
         aria-label="Minute"
-        className="countdown__input p--sml"
+        className="countdown-input"
         readOnly
       />
-      <span className="m--sml">:</span>
+      :
       <input
         value={seconds}
         name="second"
         maxLength="2"
         placeholder="SS"
         aria-label="Second"
-        className="countdown__input  p--sml"
+        className="countdown-input"
         readOnly
       />
     </div>
@@ -175,7 +175,7 @@ class Countdown extends React.Component {
 
   render() {
     return (
-      <div className="flex-container--column widget-container border-curve">
+      <div className="countdown">
         <WidgetTitle
           titleValue={this.state.title}
           backgroundColor={this.state.color}
@@ -184,9 +184,9 @@ class Countdown extends React.Component {
           inputName="title"
         />
         {!this.state.displayCountdown && (
-          <div className="p--sml">
-            <form action="" className="flow--med" onSubmit={this.handleSubmit}>
-              <div className="flex-container--centered countdown-display">
+          <div>
+            <form action="" onSubmit={this.handleSubmit}>
+              <div className="row countdown-display">
                 <input
                   value={this.state.hour}
                   name="hour"
@@ -194,9 +194,9 @@ class Countdown extends React.Component {
                   maxLength="2"
                   placeholder="HH"
                   aria-label="Hour"
-                  className="countdown__input  p--sml"
+                  className="countdown-input"
                 />
-                <span className="m--sml">:</span>
+                :
                 <input
                   value={this.state.minute}
                   name="minute"
@@ -204,9 +204,9 @@ class Countdown extends React.Component {
                   maxLength="2"
                   placeholder="MM"
                   aria-label="Minute"
-                  className="countdown__input  p--sml"
+                  className="countdown-input"
                 />
-                <span className="m--sml">:</span>
+                :
                 <input
                   value={this.state.second}
                   name="second"
@@ -214,12 +214,12 @@ class Countdown extends React.Component {
                   maxLength="2"
                   placeholder="SS"
                   aria-label="Second"
-                  className="countdown__input  p--sml"
+                  className="countdown-input"
                 />
               </div>
               <label
                 htmlFor="submit"
-                className="button"
+                className="button margin-standard"
                 tabIndex="0"
                 onKeyDown={this.handleKeyDown}
               >
@@ -233,7 +233,7 @@ class Countdown extends React.Component {
                 <span>Start</span>
               </label>
             </form>
-            <div className="button-list">
+            <div className="row button-list padding-x-small">
               <ColorPicker
                 color={this.state.color}
                 displayColorPicker={false}
@@ -243,7 +243,7 @@ class Countdown extends React.Component {
           </div>
         )}
         {this.state.displayCountdown && (
-          <div className="flow--med p--sml">
+          <div>
             <ReactCountdown
               key={this.state.date}
               ref={this.setRef}
@@ -255,7 +255,7 @@ class Countdown extends React.Component {
               renderer={renderer}
               autoStart
             />
-            <div className="button-list">
+            <div className="row button-list padding-x-small">
               <button
                 type="button"
                 onClick={this.handleStartClick}
@@ -280,7 +280,7 @@ class Countdown extends React.Component {
                 <span>Reset</span>
               </button>
             </div>
-            <div className="button-list">
+            <div className="row button-list padding-x-small">
               <ColorPicker
                 color={this.state.color}
                 displayColorPicker={false}

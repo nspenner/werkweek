@@ -126,19 +126,17 @@ class Stopwatch extends Component {
     let style = { borderColor: this.state.color };
 
     return (
-      <div className="flex-container--column widget-container border-curve" style={style}>
+      <div className="Stopwatch" style={style}>
         <WidgetTitle
           titleValue={this.state.title}
           backgroundColor={this.state.color}
           onDelete={() => this.props.deleteWatch(this.props.id)}
           onChange={this.handleChange}
         />
-        <div className="p--sml flex-container--column flow--sml">
-          <div className="flex-container--centered">
+        <div className="container">
+          <div className="row">
             <div className="Stopwatch-display">
-              <span className="monospace text--lrg">
-                {hours}:{minutes}:{seconds}:{centiseconds}
-              </span>
+              {hours}:{minutes}:{seconds}:{centiseconds}
             </div>
           </div>
 
@@ -171,35 +169,37 @@ class Stopwatch extends Component {
               </button>
             )}
           </div>
-          <div className="button-list">
-            <button onClick={() => this.addTime(60000)}>+1:00</button>
-            <button onClick={() => this.addTime(60000 * 15)}>+15:00</button>
-            <button onClick={() => this.addTime(60000 * 60)}>+60:00</button>
-          </div>
-          <div className="button-list">
-            <button
-              disabled={this.state.timerTime < 60000}
-              onClick={() => this.addTime(-60000)}
-            >
-              -1:00
-            </button>
-            <button
-              disabled={this.state.timerTime < 60000 * 15}
-              onClick={() => this.addTime(-60000 * 15)}
-            >
-              -15:00
-            </button>
-            <button
-              disabled={this.state.timerTime < 60000 * 60}
-              onClick={() => this.addTime(-60000 * 60)}
-            >
-              -60:00
-            </button>
-            <ColorPicker
-              color={this.state.color}
-              displayColorPicker={false}
-              onChange={this.handleColorChange}
-            />
+          <div>
+            <div className="row button-list">
+              <button onClick={() => this.addTime(60000)}>+1:00</button>
+              <button onClick={() => this.addTime(60000 * 15)}>+15:00</button>
+              <button onClick={() => this.addTime(60000 * 60)}>+60:00</button>
+            </div>
+            <div className="row button-list">
+              <button
+                disabled={this.state.timerTime < 60000}
+                onClick={() => this.addTime(-60000)}
+              >
+                -1:00
+              </button>
+              <button
+                disabled={this.state.timerTime < 60000 * 15}
+                onClick={() => this.addTime(-60000 * 15)}
+              >
+                -15:00
+              </button>
+              <button
+                disabled={this.state.timerTime < 60000 * 60}
+                onClick={() => this.addTime(-60000 * 60)}
+              >
+                -60:00
+              </button>
+              <ColorPicker 
+                color={this.state.color}
+                displayColorPicker={false}
+                onChange={this.handleColorChange}
+              />
+            </div>
           </div>
         </div>
       </div>
