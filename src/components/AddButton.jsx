@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 class AddButton extends React.Component {
   render() {
     return (
-      <div>
+      <div className="button-list">
         <button
           onClick={() => this.props.addWidget("stopwatch")}
           className="AddButton"

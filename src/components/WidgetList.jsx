@@ -13,7 +13,7 @@ class WidgetList extends React.Component {
       );
     });
     return (
-      <ul>
+      <ul className="widget-grid p--non m--center">
         {widgets}
         <li key="addButton">
           <div className="placeholder-container">
