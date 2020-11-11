@@ -65,6 +65,10 @@ button:disabled {
   margin: 0;
 }
 
+.m--xsm {
+  margin: 0.25rem;
+}
+
 .m--sml {
   margin: 0.5rem;
 }
@@ -189,10 +193,11 @@ button:disabled {
   display: inline-flex;
   justify-content: space-evenly;
   align-items: center;
+  margin-right: 0.5rem;
 }
 
-.button-list > button + button {
-  margin-left: 0.5rem;
+.button-list > button:last-child {
+  margin-right: 0;
 }
 
 /* Handles inline spanned icons */

@@ -7,15 +7,21 @@ class AddButton extends React.Component {
       <div className="button-list">
         <button
           onClick={() => this.props.addWidget("stopwatch")}
-          className="AddButton"
+          className="m--xsm"
         >
           Add Stopwatch
         </button>
         <button
           onClick={() => this.props.addWidget("countdown")}
-          className="AddButton"
+          className="m--xsm"
         >
           Add Countdown
+        </button>
+        <button
+          onClick={() => this.props.addWidget("alarm")}
+          className="m--xsm"
+        >
+          Add alarm
         </button>
       </div>
     );

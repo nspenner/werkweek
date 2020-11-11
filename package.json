@@ -16,6 +16,7 @@
     "react-countdown": "^2.2.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.3",
+    "react-select": "^3.1.0",
     "statman-stopwatch": "^2.11.1",
     "uuid": "^8.3.0"
   },
