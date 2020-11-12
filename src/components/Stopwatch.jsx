@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import WidgetTitle from "./WidgetTitle";
+import ColorPicker from "./ColorPicker";
+import { defaultColorPalette } from "../resources/palettes";
+
 import PropTypes from "prop-types";
 import { set, get } from "idb-keyval";
-import ColorPicker from "./ColorPicker";
+
 
 class Stopwatch extends Component {
   state = {
     timerOn: false,
     timerStart: 0,
     timerTime: 0,
-    color: "#ea4440",
+    color: defaultColorPalette.red.dark,
     title: "Stopwatch",
     lastIntervalTime: 0,
   };
@@ -101,7 +104,7 @@ class Stopwatch extends Component {
         timerOn: false,
         timerStart: 0,
         timerTime: 0,
-        color: "#ea4440",
+        color: defaultColorPalette.red.dark,
         title: "Stopwatch",
       };
       set(this.props.id, stopwatchState);
