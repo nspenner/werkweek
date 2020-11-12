@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { TwitterPicker } from "react-color";
+import { defaultColorPalette } from "../resources/palettes";
 
 class ColorPicker extends React.Component {
   state = {
@@ -27,14 +28,9 @@ class ColorPicker extends React.Component {
           <div className="picker-container">
             <TwitterPicker
               color={this.props.color}
-              colors={[
-                "#EA4440",
-                "#33055d",
-                "#40b8bb",
-                "#0F9563",
-                "#f77474",
-                "#3041AF",
-              ]}
+              colors={Object.values(defaultColorPalette).map((color) => {
+                return color.dark;
+              })}
               onChange={this.props.onChange}
               triangle="top-right"
             />

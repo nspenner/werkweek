@@ -1,6 +1,8 @@
 import React from "react";
 import WidgetTitle from "./WidgetTitle";
 import ColorPicker from "./ColorPicker";
+import { defaultColorPalette } from "../resources/palettes";
+
 import Proptypes from "prop-types";
 import ReactCountdown from "react-countdown";
 import dayjs from "dayjs";
@@ -14,7 +16,7 @@ const defaultState = {
   second: "",
   title: "Countdown",
   isPaused: false,
-  color: "#ea4440",
+  color: defaultColorPalette.teal.dark,
 };
 
 // Renderer callback with condition
