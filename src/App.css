@@ -302,4 +302,12 @@ button:disabled {
   border: none;
   cursor: pointer;
 }
+
+.select-container {
+  min-width: 100px;
+  align-self: stretch;
+  margin-left: 0.5rem;
+  color: var(--text-primary);
+  background-color: var(--input-background);
+}
 /* End Exceptions */
