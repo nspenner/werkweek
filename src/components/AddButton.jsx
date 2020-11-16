@@ -21,7 +21,7 @@ class AddButton extends React.Component {
           onClick={() => this.props.addWidget("alarm")}
           className="m--xsm"
         >
-          Add alarm
+          Add Alarm
         </button>
       </div>
     );
