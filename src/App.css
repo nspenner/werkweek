@@ -65,6 +65,10 @@ button:disabled {
   margin: 0;
 }
 
+.m--xsm {
+  margin: 0.25rem;
+}
+
 .m--sml {
   margin: 0.5rem;
 }
@@ -141,6 +145,10 @@ button:disabled {
   font-family: "Fira Code", monospace;
 }
 
+.italic {
+  font-style: italic;
+}
+
 .text--lrg {
   font-size: 1.5rem;
 }
@@ -190,16 +198,21 @@ button:disabled {
   display: inline-flex;
   justify-content: space-evenly;
   align-items: center;
+  margin-right: 0.5rem;
 }
 
-.button-list > button + button {
-  margin-left: 0.5rem;
+.button-list > button:last-child {
+  margin-right: 0;
 }
 
 /* Handles inline spanned icons */
 .button-list button > *,
 .button > * {
   margin-right: 0.5rem;
+}
+
+.input--shrunk {
+  min-width: 0;
 }
 
 .title__input {
@@ -281,7 +294,7 @@ button:disabled {
   width: 24px;
   height: 24px;
   border-radius: 24px;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.5);
@@ -296,5 +309,13 @@ button:disabled {
   margin-right: 0;
   border: none;
   cursor: pointer;
+}
+
+.select-container {
+  min-width: 100px;
+  align-self: stretch;
+  margin-left: 0.5rem;
+  color: var(--text-primary);
+  background-color: var(--input-background);
 }
 /* End Exceptions */

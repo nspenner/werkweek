@@ -2,6 +2,7 @@ import React from "react";
 import Proptypes from "prop-types";
 import Stopwatch from "./Stopwatch";
 import Countdown from "./Countdown";
+import Alarm from "./Alarm";
 
 class Widget extends React.Component {
   render() {
@@ -20,8 +21,15 @@ class Widget extends React.Component {
           deleteWidget={this.props.deleteWidget}
         />
       );
+    } else if (this.props.widget.type === "alarm") {
+      widget = (
+        <Alarm
+          id={this.props.widget.id}
+          deleteWidget={this.props.deleteWidget}
+        />
+      );
     } else {
-      widget = <div>?</div>
+      widget = <div>?</div>;
     }
     return widget;
   }
@@ -29,7 +37,7 @@ class Widget extends React.Component {
 
 Widget.propTypes = {
   widget: Proptypes.object.isRequired,
-  deleteWidget: Proptypes.func.isRequired
+  deleteWidget: Proptypes.func.isRequired,
 };
 
 export default Widget;

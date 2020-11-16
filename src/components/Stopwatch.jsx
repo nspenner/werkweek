@@ -129,7 +129,10 @@ class Stopwatch extends Component {
     let style = { borderColor: this.state.color };
 
     return (
-      <div className="flex-container--column widget-container border-curve" style={style}>
+      <div
+        className="flex-container--column widget-container border-curve"
+        style={style}
+      >
         <WidgetTitle
           titleValue={this.state.title}
           backgroundColor={this.state.color}
@@ -175,24 +178,39 @@ class Stopwatch extends Component {
             )}
           </div>
           <div className="button-list">
-            <button onClick={() => this.addTime(60000)}>+1:00</button>
-            <button onClick={() => this.addTime(60000 * 15)}>+15:00</button>
-            <button onClick={() => this.addTime(60000 * 60)}>+60:00</button>
+            <button className="monospace" onClick={() => this.addTime(60000)}>
+              +1:00
+            </button>
+            <button
+              className="monospace"
+              onClick={() => this.addTime(60000 * 15)}
+            >
+              +15:00
+            </button>
+            <button
+              className="monospace"
+              onClick={() => this.addTime(60000 * 60)}
+            >
+              +60:00
+            </button>
           </div>
           <div className="button-list flex-container">
             <button
+              className="monospace"
               disabled={this.state.timerTime < 60000}
               onClick={() => this.addTime(-60000)}
             >
               -1:00
             </button>
             <button
+              className="monospace"
               disabled={this.state.timerTime < 60000 * 15}
               onClick={() => this.addTime(-60000 * 15)}
             >
               -15:00
             </button>
             <button
+              className="monospace"
               disabled={this.state.timerTime < 60000 * 60}
               onClick={() => this.addTime(-60000 * 60)}
             >
