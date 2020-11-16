@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4d20c6bd810176302ed4c24a69e9191a",
+    "revision": "66ef44b2b90113263b42c6d30c92a559",
     "url": "/werkweek/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/werkweek/static/css/2.764ccc25.chunk.css"
   },
   {
-    "revision": "9a458b1c44c6064fbbef",
+    "revision": "c74ae565947eda4236a6",
     "url": "/werkweek/static/css/main.a915f3f3.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/werkweek/static/js/2.e2e8dfb4.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "9a458b1c44c6064fbbef",
-    "url": "/werkweek/static/js/main.d39c86b3.chunk.js"
+    "revision": "c74ae565947eda4236a6",
+    "url": "/werkweek/static/js/main.8f6f6f34.chunk.js"
   },
   {
     "revision": "eebd276a4a6852b0a8c4",
