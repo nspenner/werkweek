@@ -161,7 +161,7 @@ class Alarm extends React.Component {
         <WidgetTitle
           titleValue={this.state.title}
           backgroundColor={this.state.color}
-          onDelete={() => this.props.deleteWatch(this.props.id)}
+          onDelete={() => this.props.deleteWidget(this.props.id)}
           onChange={this.handleChange}
         />
         <div className="p--sml">
@@ -270,7 +270,7 @@ class Alarm extends React.Component {
 
 Alarm.propTypes = {
   id: PropTypes.string.isRequired,
-  deleteWatch: PropTypes.func.isRequired,
+  deleteWidget: PropTypes.func.isRequired,
 };
 
 export default Alarm;
