@@ -194,7 +194,7 @@ class Stopwatch extends Component {
               +60:00
             </button>
           </div>
-          <div className="button-list">
+          <div className="button-list flex-container">
             <button
               className="monospace"
               disabled={this.state.timerTime < 60000}
