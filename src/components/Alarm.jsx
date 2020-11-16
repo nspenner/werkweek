@@ -6,11 +6,33 @@ import ColorPicker from "./ColorPicker";
 import PropTypes from "prop-types";
 import Select from "react-select";
 import { set } from "idb-keyval";
+import ReactCountdown from "react-countdown";
+import dayjs from "dayjs";
+import objectSupport from "dayjs/plugin/objectSupport";
 
 const options = [
   { value: "am", label: "AM" },
   { value: "pm", label: "PM" },
 ];
+
+const renderer = ({ hours, minutes, seconds }) => {
+  // Render a countdown
+  return (
+    <div className="flex-container--centered">
+      <span name="hour" aria-label="Hour" className="monospace italic">
+        {hours}
+      </span>
+      <span className="m--sml">:</span>
+      <span name="minute" aria-label="Minute" className="monospace italic">
+        {minutes}
+      </span>
+      <span className="m--sml">:</span>
+      <span name="second" aria-label="Second" className="monospace italic">
+        {seconds}
+      </span>
+    </div>
+  );
+};
 
 class Alarm extends React.Component {
   state = {
@@ -19,6 +41,46 @@ class Alarm extends React.Component {
     selectedOption: { value: "am", label: "AM" },
     hour: "",
     minute: "",
+    date: Date.now(),
+  };
+  countdownApi = null;
+
+  handleStartClick = () => {
+    this.countdownApi && this.countdownApi.start();
+  };
+
+  handleStopClick = () => {
+    this.setState(
+      {
+        displayCountdown: false,
+      },
+      () => {
+        set(this.props.id, this.state);
+      }
+    );
+  };
+
+  handleUpdate = () => {
+    this.forceUpdate();
+  };
+
+  handleComplete = () => {
+    new Notification(`${this.state.title}`);
+    this.forceUpdate();
+  };
+
+  setRef = (countdown) => {
+    if (countdown) {
+      this.countdownApi = countdown.getApi();
+    }
+  };
+
+  isPaused = () => {
+    return !!(this.countdownApi && this.countdownApi.isPaused());
+  };
+
+  isCompleted = () => {
+    return !!(this.countdownApi && this.countdownApi.isCompleted());
   };
 
   handleChange = (e) => {
@@ -56,11 +118,24 @@ class Alarm extends React.Component {
 
   handleSelectChange = (selectedOption) => {
     this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
+    dayjs.extend(objectSupport);
+    const adjustedHour =
+      this.state.selectedOption.value === "am"
+        ? this.state.hour
+        : `${parseInt(this.state.hour) + 12}`;
+    let date = dayjs({
+      hour: adjustedHour,
+      minute: this.state.minute,
+      a: this.state.selectedOption.value,
+    });
+    if (date.isBefore(dayjs())) {
+      date = date.add(1, "day");
+    }
+    this.setState({ date: date.toDate(), displayCountdown: true });
   };
 
   render() {
@@ -100,6 +175,7 @@ class Alarm extends React.Component {
                 placeholder="HH"
                 aria-label="Hour"
                 className="countdown__input  p--sml"
+                readOnly={this.state.displayCountdown}
               />
               <span className="m--sml">:</span>
               <input
@@ -110,6 +186,7 @@ class Alarm extends React.Component {
                 placeholder="MM"
                 aria-label="Minute"
                 className="countdown__input  p--sml"
+                readOnly={this.state.displayCountdown}
               />
               <div className="select-container">
                 <Select
@@ -118,23 +195,73 @@ class Alarm extends React.Component {
                   onChange={this.handleSelectChange}
                   options={options}
                   styles={customStyles}
+                  isDisabled={this.state.displayCountdown}
                 />
               </div>
             </div>
-            <div className="button-list">
-              <button type="submit">
-                <ion-icon name="play"></ion-icon>
-                <span>Start</span>
-              </button>
-            </div>
+            {this.state.displayCountdown && (
+              <div>
+                <ReactCountdown
+                  key={this.state.date}
+                  ref={this.setRef}
+                  date={this.state.date}
+                  onMount={this.handleUpdate}
+                  onStart={this.handleUpdate}
+                  onPause={this.handlePause}
+                  onComplete={this.handleComplete}
+                  renderer={renderer}
+                  autoStart
+                />
+                <div className="button-list">
+                  <button onClick={this.handleStopClick}>
+                    <ion-icon name="stop"></ion-icon>
+                    <span>Stop</span>
+                  </button>
+                </div>
+              </div>
+            )}
+            {!this.state.displayCountdown && (
+              <div>
+                <div className="flex-container--centered">
+                  <span
+                    name="hour"
+                    aria-label="Hour"
+                    className="monospace italic"
+                  >
+                    --{" "}
+                  </span>
+                  <span className="m--sml">:</span>
+                  <span
+                    name="minute"
+                    aria-label="Minute"
+                    className="monospace italic"
+                  >
+                    --{" "}
+                  </span>
+                  <span className="m--sml">:</span>
+                  <span
+                    name="second"
+                    aria-label="Second"
+                    className="monospace italic"
+                  >
+                    --{" "}
+                  </span>
+                </div>
+                <div className="button-list flex-container">
+                  <button>
+                    <ion-icon name="play"></ion-icon>
+                    <span>Start</span>
+                  </button>
+                  <ColorPicker
+                    color={this.state.color}
+                    displayColorPicker={false}
+                    onChange={this.handleColorChange}
+                  />
+                </div>
+              </div>
+            )}
           </form>
-          <div className="button-list">
-            <ColorPicker
-              color={this.state.color}
-              displayColorPicker={false}
-              onChange={this.handleColorChange}
-            />
-          </div>
+          <div className="button-list"></div>
         </div>
       </div>
     );
