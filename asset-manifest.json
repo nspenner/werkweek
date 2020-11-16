@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/werkweek/static/css/main.6dbfe763.chunk.css",
-    "main.js": "/werkweek/static/js/main.f368d800.chunk.js",
-    "main.js.map": "/werkweek/static/js/main.f368d800.chunk.js.map",
+    "main.css": "/werkweek/static/css/main.a915f3f3.chunk.css",
+    "main.js": "/werkweek/static/js/main.d39c86b3.chunk.js",
+    "main.js.map": "/werkweek/static/js/main.d39c86b3.chunk.js.map",
     "runtime-main.js": "/werkweek/static/js/runtime-main.5da2ad4e.js",
     "runtime-main.js.map": "/werkweek/static/js/runtime-main.5da2ad4e.js.map",
     "static/css/2.764ccc25.chunk.css": "/werkweek/static/css/2.764ccc25.chunk.css",
-    "static/js/2.69b4e953.chunk.js": "/werkweek/static/js/2.69b4e953.chunk.js",
-    "static/js/2.69b4e953.chunk.js.map": "/werkweek/static/js/2.69b4e953.chunk.js.map",
+    "static/js/2.e2e8dfb4.chunk.js": "/werkweek/static/js/2.e2e8dfb4.chunk.js",
+    "static/js/2.e2e8dfb4.chunk.js.map": "/werkweek/static/js/2.e2e8dfb4.chunk.js.map",
     "index.html": "/werkweek/index.html",
-    "precache-manifest.7edd2d9f4c55d5ed9a57026a203dd089.js": "/werkweek/precache-manifest.7edd2d9f4c55d5ed9a57026a203dd089.js",
+    "precache-manifest.80d3a83051f72bd6da17adef431c9bd3.js": "/werkweek/precache-manifest.80d3a83051f72bd6da17adef431c9bd3.js",
     "service-worker.js": "/werkweek/service-worker.js",
     "static/css/2.764ccc25.chunk.css.map": "/werkweek/static/css/2.764ccc25.chunk.css.map",
-    "static/css/main.6dbfe763.chunk.css.map": "/werkweek/static/css/main.6dbfe763.chunk.css.map",
-    "static/js/2.69b4e953.chunk.js.LICENSE.txt": "/werkweek/static/js/2.69b4e953.chunk.js.LICENSE.txt"
+    "static/css/main.a915f3f3.chunk.css.map": "/werkweek/static/css/main.a915f3f3.chunk.css.map",
+    "static/js/2.e2e8dfb4.chunk.js.LICENSE.txt": "/werkweek/static/js/2.e2e8dfb4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.5da2ad4e.js",
     "static/css/2.764ccc25.chunk.css",
-    "static/js/2.69b4e953.chunk.js",
-    "static/css/main.6dbfe763.chunk.css",
-    "static/js/main.f368d800.chunk.js"
+    "static/js/2.e2e8dfb4.chunk.js",
+    "static/css/main.a915f3f3.chunk.css",
+    "static/js/main.d39c86b3.chunk.js"
   ]
 }
