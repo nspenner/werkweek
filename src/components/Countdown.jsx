@@ -235,7 +235,7 @@ class Countdown extends React.Component {
                 <span>Start</span>
               </label>
             </form>
-            <div className="button-list">
+            <div className="flex-container">
               <ColorPicker
                 color={this.state.color}
                 displayColorPicker={false}
@@ -282,7 +282,7 @@ class Countdown extends React.Component {
                 <span>Reset</span>
               </button>
             </div>
-            <div className="button-list">
+            <div className="flex-container">
               <ColorPicker
                 color={this.state.color}
                 displayColorPicker={false}

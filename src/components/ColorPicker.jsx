@@ -19,34 +19,30 @@ class ColorPicker extends React.Component {
 
   render() {
     return this.state.displayColorPicker ? (
-      <div className="full-width flex">
-        <div className="color-selection-button-container">
-          <button
-            style={{ backgroundColor: this.props.color }}
-            onClick={this.toggleDisplayColorPicker}
-          ></button>
-          <div className="picker-container">
-            <TwitterPicker
-              color={this.props.color}
-              colors={Object.values(defaultColorPalette).map((color) => {
-                return color.dark;
-              })}
-              onChange={this.props.onChange}
-              triangle="top-right"
-            />
-          </div>
-
-          <div className="cover" onClick={this.handleColorPickerClose}></div>
+      <div className="color-selection-button-container">
+        <button
+          style={{ backgroundColor: this.props.color }}
+          onClick={this.toggleDisplayColorPicker}
+        ></button>
+        <div className="picker-container">
+          <TwitterPicker
+            color={this.props.color}
+            colors={Object.values(defaultColorPalette).map((color) => {
+              return color.dark;
+            })}
+            onChange={this.props.onChange}
+            triangle="top-right"
+          />
         </div>
+
+        <div className="cover" onClick={this.handleColorPickerClose}></div>
       </div>
     ) : (
-      <div className="full-width flex">
-        <div className="color-selection-button-container">
-          <button
-            style={{ backgroundColor: this.props.color }}
-            onClick={this.toggleDisplayColorPicker}
-          ></button>
-        </div>
+      <div className="color-selection-button-container">
+        <button
+          style={{ backgroundColor: this.props.color }}
+          onClick={this.toggleDisplayColorPicker}
+        ></button>
       </div>
     );
   }
