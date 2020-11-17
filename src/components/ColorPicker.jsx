@@ -21,6 +21,7 @@ class ColorPicker extends React.Component {
     return this.state.displayColorPicker ? (
       <div className="color-selection-button-container">
         <button
+          type="button"
           style={{ backgroundColor: this.props.color }}
           onClick={this.toggleDisplayColorPicker}
         ></button>

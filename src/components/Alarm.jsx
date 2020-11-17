@@ -5,7 +5,7 @@ import ColorPicker from "./ColorPicker";
 
 import PropTypes from "prop-types";
 import Select from "react-select";
-import { set } from "idb-keyval";
+import { get, set } from "idb-keyval";
 import ReactCountdown from "react-countdown";
 import dayjs from "dayjs";
 import objectSupport from "dayjs/plugin/objectSupport";
@@ -45,8 +45,11 @@ class Alarm extends React.Component {
   };
   countdownApi = null;
 
-  handleStartClick = () => {
-    this.countdownApi && this.countdownApi.start();
+  componentDidMount = async () => {
+    let alarmState = await get(this.props.id);
+    if (alarmState) {
+      this.setState(alarmState);
+    }
   };
 
   handleStopClick = () => {
@@ -212,11 +215,16 @@ class Alarm extends React.Component {
                   renderer={renderer}
                   autoStart
                 />
-                <div className="button-list">
+                <div className="button-list flex-container">
                   <button onClick={this.handleStopClick}>
                     <ion-icon name="stop"></ion-icon>
                     <span>Stop</span>
                   </button>
+                  <ColorPicker
+                    color={this.state.color}
+                    displayColorPicker={false}
+                    onChange={this.handleColorChange}
+                  />
                 </div>
               </div>
             )}
@@ -248,7 +256,7 @@ class Alarm extends React.Component {
                   </span>
                 </div>
                 <div className="button-list flex-container">
-                  <button>
+                  <button type="submit">
                     <ion-icon name="play"></ion-icon>
                     <span>Start</span>
                   </button>
