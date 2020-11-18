@@ -127,7 +127,7 @@ class Alarm extends React.Component {
     e.preventDefault();
     dayjs.extend(objectSupport);
     const adjustedHour =
-      this.state.selectedOption.value === "am"
+      this.state.selectedOption.value === "am" && this.state.hour != 12
         ? this.state.hour
         : `${parseInt(this.state.hour) + 12}`;
     let date = dayjs({
