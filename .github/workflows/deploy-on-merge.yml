@@ -13,8 +13,8 @@ jobs:
           persist-credentials: false
 
       - name: Install and Build
+        uses: actions/setup-node@v2.1.2
         steps:
-          - run: actions/setup-node@v2.1.2
           - run: npm install
           - run: npm run build
 
