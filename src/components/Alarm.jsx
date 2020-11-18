@@ -126,10 +126,15 @@ class Alarm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     dayjs.extend(objectSupport);
-    const adjustedHour =
-      this.state.selectedOption.value === "am" && this.state.hour != 12
-        ? this.state.hour
-        : `${parseInt(this.state.hour) + 12}`;
+    let adjustedHour;
+    if (this.state.hour === "12") {
+      adjustedHour = this.state.selectedOption.value === "am" ? 0 : 12;
+    } else {
+      adjustedHour =
+        this.state.selectedOption.value === "am"
+          ? this.state.hour
+          : `${parseInt(this.state.hour) + 12}`;
+    }
     let date = dayjs({
       hour: adjustedHour,
       minute: this.state.minute,
