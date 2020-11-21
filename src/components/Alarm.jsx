@@ -69,7 +69,7 @@ class Alarm extends React.Component {
 
   handleComplete = () => {
     new Notification(`${this.state.title}`);
-    this.forceUpdate();
+    this.setState({ displayCountdown: false });
   };
 
   setRef = (countdown) => {
