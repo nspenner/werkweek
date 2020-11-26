@@ -155,13 +155,41 @@ class Alarm extends React.Component {
         fontFamily: "Fira Sans",
         fontSize: "2rem",
       }),
-      control: (provided) => ({
+      control: (provided, state) => ({
         ...provided,
         height: "100%",
+        backgroundColor: "inherit",
+        border: "none",
+        borderColor: state.isFocused ? this.state.color : "inherit",
+        boxShadow: state.isFocused ? `0 0 3px ${this.state.color}` : "none",
       }),
       input: (provided) => ({
         ...provided,
         height: "inherit",
+      }),
+      indicatorSeparator: (provided) => ({
+        ...provided,
+        backgroundColor: "#989696",
+        width: "2px",
+      }),
+      dropdownIndicator: (provided) => ({
+        ...provided,
+        color: "#989696",
+      }),
+      singleValue: (provided) => ({
+        ...provided,
+        color: "var(--text-primary)",
+      }),
+      option: (provided, state) => ({
+        ...provided,
+        backgroundColor: state.isFocused
+          ? "var(--input-background)"
+          : "var(--widgetBackground)",
+        color: "var(--text-primary)",
+      }),
+      menu: (provided) => ({
+        ...provided,
+        backgroundColor: "var(--widgetBackground)",
       }),
     };
     return (
@@ -198,6 +226,7 @@ class Alarm extends React.Component {
               />
               <div className="select-container">
                 <Select
+                  classNamePrefix="react-select"
                   name="selectedOption"
                   value={selectedOption}
                   onChange={this.handleSelectChange}

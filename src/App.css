@@ -6,7 +6,7 @@
 :root {
   --primary: #ea4440;
   --widgetBackground: #ffffff;
-  --text-primary: hsl(5, 8%, 30%);
+  --text-primary: #534746;
   --text-disabled: hsl(4, 4%, 65%);
   --background-disabled: hsl(4, 4%, 95%);
   --input-background: hsl(0, 0%, 95%);
@@ -16,7 +16,7 @@
   :root {
     --background: #2f2f2f;
     --widgetBackground: #4b4b4b;
-    --text-primary: hsl(4, 10%, 95%);
+    --text-primary: #f4f1f1;
     --background-disabled: hsl(0, 2.2%, 35.7%);
     --input-background: #2f2f2f;
   }
@@ -317,5 +317,6 @@ button:disabled {
   margin-left: 0.5rem;
   color: var(--text-primary);
   background-color: var(--input-background);
+  border-radius: 6px;
 }
 /* End Exceptions */
