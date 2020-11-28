@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import PropTypes from "prop-types";
 
 class WidgetTitle extends React.Component {
@@ -11,11 +11,12 @@ class WidgetTitle extends React.Component {
 
   render() {
     return (
-      <div className="border-curve--top" style={{ backgroundColor: this.props.backgroundColor }}>
+      <div
+        className="border-curve--top"
+        style={{ backgroundColor: this.props.backgroundColor }}
+      >
         {" "}
-        <div
-          className="p--sml flex-container--centered"
-        >
+        <div className="p--sml flex-container--centered">
           <textarea
             name={this.props.inputName}
             className="title__input"
@@ -26,10 +27,8 @@ class WidgetTitle extends React.Component {
             value={this.props.titleValue}
           ></textarea>
         </div>
-        <button
-          className="close-button"
-          onClick={this.props.onDelete}
-        >
+        <div className="drag-handle">=</div>
+        <button className="close-button" onClick={this.props.onDelete}>
           <svg
             width="1em"
             height="1em"
@@ -54,11 +53,11 @@ class WidgetTitle extends React.Component {
 }
 
 WidgetTitle.propTypes = {
-    backgroundColor: PropTypes.string.isRequired,
-    inputName: PropTypes.string,
-    titleValue: PropTypes.string.isRequired,
-    onDelete: PropTypes.func,
-    onChange: PropTypes.func.isRequired,
-}
+  backgroundColor: PropTypes.string.isRequired,
+  inputName: PropTypes.string,
+  titleValue: PropTypes.string.isRequired,
+  onDelete: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default WidgetTitle;
