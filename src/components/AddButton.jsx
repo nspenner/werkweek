@@ -5,24 +5,13 @@ class AddButton extends React.Component {
   render() {
     return (
       <div className="button-list">
-        <button
-          onClick={() => this.props.addWidget("stopwatch")}
-          className="m--xsm"
-        >
+        <button onClick={() => this.props.addWidget("stopwatch")}>
           Add Stopwatch
         </button>
-        <button
-          onClick={() => this.props.addWidget("countdown")}
-          className="m--xsm"
-        >
+        <button onClick={() => this.props.addWidget("countdown")}>
           Add Countdown
         </button>
-        <button
-          onClick={() => this.props.addWidget("alarm")}
-          className="m--xsm"
-        >
-          Add Alarm
-        </button>
+        <button onClick={() => this.props.addWidget("alarm")}>Add Alarm</button>
       </div>
     );
   }

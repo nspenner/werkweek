@@ -27,7 +27,9 @@ class WidgetTitle extends React.Component {
             value={this.props.titleValue}
           ></textarea>
         </div>
-        <div className="drag-handle">=</div>
+        <div className="drag-handle">
+          <ion-icon name="reorder-two-outline"></ion-icon>
+        </div>
         <button className="close-button" onClick={this.props.onDelete}>
           <svg
             width="1em"
