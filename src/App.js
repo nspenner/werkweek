@@ -87,8 +87,21 @@ class App extends React.Component {
   };
 
   onLayoutChange = (layout) => {
-    this.setState(layout, () => {
+    let widgets = [];
+    layout.sort((a, b)=> {
+      if (a.y===b.y) {
+        return a.x < b.x ? -1 : 1
+      }
+      return a.y < b.y ? -1 : 1
+    })
+    layout.forEach((element) => {
+      widgets.push(
+        this.state.widgets.find((widget) => widget.id === element.i)
+      );
+    });
+    this.setState({ layout, widgets }, () => {
       set("layout", layout);
+      set("widgets", widgets)
     });
   };
 
