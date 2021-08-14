@@ -138,6 +138,7 @@ class Stopwatch extends Component {
           backgroundColor={this.state.color}
           onDelete={() => this.props.deleteWatch(this.props.id)}
           onChange={this.handleChange}
+          inputName="title"
         />
         <div className="p--sml flex-container--column flow--sml">
           <div className="flex-container--centered">
